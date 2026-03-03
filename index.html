@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The History of Israel — Biblical & Scientific Perspectives</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@300;400;600&display=swap');
+
+  :root {
+    --gold: #B8860B;
+    --deep-blue: #1a2a4a;
+    --parchment: #fdf6e3;
+    --light-parchment: #fffdf7;
+    --science-blue: #1d4e7a;
+    --bible-maroon: #7a1d1d;
+    --both-green: #1d5e2a;
+    --timeline-line: #c9a84c;
+    --text-dark: #2c2c2c;
+    --text-mid: #4a4a4a;
+    --border-light: #e0d5b0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    background: var(--parchment);
+    color: var(--text-dark);
+    line-height: 1.75;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: linear-gradient(160deg, #0d1b2e 0%, #1a2a4a 50%, #2d1a0e 100%);
+    color: #f5e6c8;
+    text-align: center;
+    padding: 80px 40px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '✡';
+    position: absolute;
+    font-size: 300px;
+    opacity: 0.04;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cover-subtitle {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: #c9a84c;
+    margin-bottom: 20px;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .cover h1 span { color: #c9a84c; }
+  .cover-desc {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.15rem;
+    color: #d4c4a0;
+    max-width: 620px;
+    margin: 0 auto 40px;
+    font-style: italic;
+  }
+  .cover-badges {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .badge {
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .badge-bible  { background: rgba(122,29,29,0.7); color: #ffc9c9; border: 1px solid #a03030; }
+  .badge-sci    { background: rgba(29,78,122,0.7); color: #c9e0ff; border: 1px solid #2a5a8a; }
+  .badge-both   { background: rgba(29,94,42,0.7);  color: #c9ffd2; border: 1px solid #2a7a3a; }
+
+  /* ── LEGEND ── */
+  .legend {
+    background: var(--deep-blue);
+    color: #f0e8d0;
+    padding: 20px 40px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+  .legend strong { color: #c9a84c; margin-right: 8px; font-size: 1rem; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .leg-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+  .leg-bible  { background: #c0392b; }
+  .leg-sci    { background: #2980b9; }
+  .leg-both   { background: #27ae60; }
+
+  /* ── MAIN CONTENT ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ── ERA HEADERS ── */
+  .era-header {
+    margin: 60px 0 0;
+    padding: 28px 36px;
+    border-left: 6px solid var(--gold);
+    background: linear-gradient(90deg, rgba(184,134,11,0.08) 0%, transparent 80%);
+    position: relative;
+  }
+  .era-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .era-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    color: var(--deep-blue);
+    line-height: 1.2;
+  }
+  .era-header p {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; margin-top: 36px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--timeline-line), #d4b896, var(--timeline-line));
+    border-radius: 2px;
+  }
+
+  /* ── EVENT CARD ── */
+  .event {
+    position: relative;
+    margin-left: 72px;
+    margin-bottom: 32px;
+    border-radius: 10px;
+    border: 1px solid var(--border-light);
+    background: var(--light-parchment);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .event:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.12); }
+
+  /* dot on timeline */
+  .event::before {
+    content: '';
+    position: absolute;
+    left: -52px;
+    top: 22px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 3px solid var(--light-parchment);
+    box-shadow: 0 0 0 2px var(--timeline-line);
+    z-index: 1;
+  }
+  .event.bible::before  { background: #c0392b; }
+  .event.science::before { background: #2980b9; }
+  .event.both::before   { background: #27ae60; }
+
+  .event-header {
+    padding: 14px 20px 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .event.bible   .event-header { background: linear-gradient(90deg, rgba(192,57,43,0.06) 0%, transparent 70%); }
+  .event.science .event-header { background: linear-gradient(90deg, rgba(41,128,185,0.06) 0%, transparent 70%); }
+  .event.both    .event-header { background: linear-gradient(90deg, rgba(39,174,96,0.06) 0%, transparent 70%); }
+
+  .event-date {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--deep-blue);
+    white-space: nowrap;
+    min-width: 120px;
+    padding-top: 2px;
+  }
+  .event-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.12rem;
+    color: var(--text-dark);
+    line-height: 1.3;
+    flex: 1;
+  }
+  .source-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .tag-bible   { background: #fdecea; color: #c0392b; border: 1px solid #e8aaaa; }
+  .tag-sci     { background: #eaf2fb; color: #1d6fa4; border: 1px solid #aacfe8; }
+  .tag-both    { background: #eafaf1; color: #1a7a3a; border: 1px solid #aaeac4; }
+
+  .event-body { padding: 16px 20px; }
+  .event-body p { font-size: 0.95rem; color: var(--text-mid); margin-bottom: 10px; }
+  .event-body p:last-child { margin-bottom: 0; }
+
+  .ref-box {
+    margin-top: 12px;
+    background: rgba(184,134,11,0.06);
+    border: 1px solid rgba(184,134,11,0.2);
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+  .ref-box-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .ref-item {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.92rem;
+    color: #5a4a1a;
+    line-height: 1.5;
+    margin-bottom: 3px;
+  }
+  .ref-item span { font-weight: 600; }
+  .ref-item em { color: var(--text-mid); font-style: italic; }
+
+  /* ── SECTION INTRO ── */
+  .section-intro {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 24px 0 32px;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    border-left: 4px solid var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep-blue);
+    color: #b0b8c8;
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 0.82rem;
+    line-height: 1.8;
+  }
+  footer strong { color: #c9a84c; }
+
+  @media (max-width: 600px) {
+    .event { margin-left: 52px; }
+    .timeline::before { left: 18px; }
+    .event::before { left: -40px; }
+    .event-header { flex-direction: column; gap: 6px; }
+    .event-date { min-width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-subtitle">A Comprehensive Study</div>
+  <h1>The History of <span>Israel</span><br>as a Nation</h1>
+  <p class="cover-desc">Tracing the story of the Israelite people and the State of Israel through the lenses of Sacred Scripture and modern archaeology, history, and science</p>
+  <div class="cover-badges">
+    <span class="badge badge-bible">📖 Biblical</span>
+    <span class="badge badge-sci">🔬 Scientific</span>
+    <span class="badge badge-both">✦ Both Sources</span>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <strong>KEY</strong>
+  <div class="legend-item"><div class="leg-dot leg-bible"></div> Biblical sources only</div>
+  <div class="legend-item"><div class="leg-dot leg-sci"></div> Scientific / Historical sources only</div>
+  <div class="legend-item"><div class="leg-dot leg-both"></div> Attested in both traditions</div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ERA 1 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header">
+  <div class="era-label">Era I · c. 2100–1700 BCE</div>
+  <h2>The Patriarchal Age</h2>
+  <p>Origins of the Hebrew people — Abraham, Isaac, Jacob, and the twelve tribes</p>
+</div>
+
+<div class="section-intro">
+  The biblical narrative places the origins of Israel with a single family in Mesopotamia. Modern archaeology cannot confirm these figures as historical persons but finds the social, legal, and cultural details in Genesis consistent with Middle Bronze Age Canaan and the ancient Near East.
+</div>
+
+<div class="timeline">
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 2100–2000 BCE</div>
+      <div class="event-title">Abraham's Call and Migration from Ur</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>The biblical account opens with Abram (later Abraham) receiving a divine call to leave Ur of the Chaldeans in Mesopotamia and travel to Canaan, with a covenant promise that he would become the father of a great nation. This migration fits plausibly within the broader population movements of the Middle Bronze Age.</p>
+      <p>Archaeologically, Ur was a major Sumerian city-state (modern Tell el-Muqayyar, Iraq) at its height c. 2100 BCE. Cuneiform records show that Semitic names similar to "Abram" appear in tablets from Ebla and Mari, indicating the name type was common in the region and period described.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Genesis 11:27–12:9 — "The LORD said to Abram, 'Go from your country… to the land I will show you.'"</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Woolley, C.L. (1934). Ur Excavations. British Museum & University of Pennsylvania.</em> Confirms Ur as major urban center; Middle Bronze Age migration patterns documented.</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Pettinato, G. (1981). The Archives of Ebla. Doubleday.</em> Names parallel to Abram attested in Eblaite texts.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 2000–1900 BCE</div>
+      <div class="event-title">The Covenant of Circumcision & Birth of Isaac</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>God establishes the Abrahamic covenant, which includes circumcision as a physical sign and the promise of the land of Canaan to Abraham's descendants. The birth of Isaac to the aged Sarah is presented as a miraculous fulfillment of the covenant promise.</p>
+      <p>Circumcision as a ritual practice is attested in ancient Egypt (reliefs at Saqqara, c. 2400 BCE) and across the ancient Semitic world, confirming it was a known religious and social practice in the period.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Genesis 15, 17, 21:1–7</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Saqqara tomb relief (Ankh-Mahor tomb, c. 2400 BCE) — earliest known depiction of circumcision, Egyptian Museum, Cairo.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event bible">
+    <div class="event-header">
+      <div class="event-date">c. 1900–1800 BCE</div>
+      <div class="event-title">Isaac, Rebekah, and the Birth of Jacob & Esau</div>
+      <span class="source-tag tag-bible">Biblical</span>
+    </div>
+    <div class="event-body">
+      <p>Isaac carries the covenant line. His twin sons Jacob and Esau represent the birth of two nations (Israel and Edom). Jacob, through cunning, obtains his brother's birthright and his father's blessing — foreshadowing Israel's future as the bearer of the covenant.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Genesis 24–27</div>
+        <div class="ref-item"><span>Note:</span> <em>No direct extra-biblical attestation for Isaac as a historical individual; the social customs (birthright, oral blessings) mirror practices found in Nuzi tablets from the 15th–14th c. BCE (Harvard Semitic Museum).</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 1800–1700 BCE</div>
+      <div class="event-title">Jacob Becomes "Israel" — Twelve Tribes Established</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Jacob wrestles with a divine figure at Peniel and is renamed "Israel" (meaning "one who strives with God" in Hebrew). His twelve sons become the eponymous ancestors of the twelve tribes of Israel. The family migrates to Egypt during a severe famine, with Joseph (sold into slavery by his brothers) now in a position of power in Pharaoh's court.</p>
+      <p>The name "Israel" appears in an extra-biblical context for the first time in the Merneptah Stele (c. 1208 BCE), confirming a people group by this name existed in Canaan. Egyptian records confirm Semitic peoples ("Asiatics" / Hyksos) settling in the Nile Delta from c. 1800 BCE onward.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Genesis 32:28; 37–50</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Merneptah Stele (Cairo Museum, CG 34025), c. 1208 BCE — earliest extra-biblical mention of "Israel."</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Bietak, M. (1996). Avaris: The Capital of the Hyksos. British Museum Press.</em> Confirms Semitic settlement in eastern Nile Delta.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end timeline -->
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ERA 2 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header">
+  <div class="era-label">Era II · c. 1700–1200 BCE</div>
+  <h2>Egypt, the Exodus &amp; Wilderness</h2>
+  <p>From bondage to liberation — Moses, the Exodus, and the giving of the Law</p>
+</div>
+
+<div class="section-intro">
+  The Exodus is the defining event of Israelite identity and faith. Scholarly debate over its historicity is vigorous; while direct Egyptian records of the Exodus have not been found, several lines of archaeological evidence illuminate the plausibility of the narrative's core claims.
+</div>
+
+<div class="timeline">
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 1700–1550 BCE</div>
+      <div class="event-title">Israelites in Egypt — The Hyksos Period</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>The Bible describes the Israelites multiplying greatly in Egypt until "a new king arose who did not know Joseph," initiating their oppression as slave laborers. Archaeologists have identified the Hyksos — a Semitic people who ruled Lower Egypt c. 1650–1550 BCE — as a possible historical echo of the Israelite sojourn. Their capital was at Avaris (modern Tell el-Dab'a) in the eastern Nile Delta, exactly the region the Bible associates with Israel (the land of Goshen).</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Exodus 1:8–14</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Bietak, M. (2010). "Avaris." UCLA Encyclopedia of Egyptology.</em> Extensive Semitic occupation of eastern Delta confirmed by pottery, architecture, and burial customs.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 1280–1250 BCE</div>
+      <div class="event-title">Moses, the Plagues, and the Exodus from Egypt</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Moses, raised in Pharaoh's court, leads the Israelites out of Egypt following ten plagues and the dramatic crossing of the Red Sea (Sea of Reeds). The traditional date aligns with the reign of Ramesses II (1279–1213 BCE), whose massive building projects used conscripted labor and whose capital Pi-Ramesses was located in the eastern Nile Delta.</p>
+      <p>A volcanic eruption of Thera/Santorini (c. 1600 BCE, or possibly later) has been proposed by some scientists as a natural explanation for several of the plagues (darkness, hail, water turning red from volcanic ash). The Ipuwer Papyrus (Egyptian Museum, Leiden) describes social chaos and natural disasters strikingly parallel to the Exodus plagues, though its dating and connection remain debated.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Exodus 2–15</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Kitchen, K.A. (2003). On the Reliability of the Old Testament. Eerdmans.</em> Detailed case for Ramesside dating of the Exodus.</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Ipuwer Papyrus (Leiden Papyrus I 344, c. 1850–1650 BCE). Rijksmuseum van Oudheden, Leiden.</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Santorini eruption: Manning, S. et al. (2006). Science, 312, 548–552.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event bible">
+    <div class="event-header">
+      <div class="event-date">c. 1250–1210 BCE</div>
+      <div class="event-title">The Sinai Covenant — Torah Given to Moses</div>
+      <span class="source-tag tag-bible">Biblical</span>
+    </div>
+    <div class="event-body">
+      <p>At Mount Sinai, God gives Moses the Ten Commandments and the broader Torah (Law), establishing Israel as a covenant nation with a distinct legal, ethical, and liturgical identity. The tabernacle — a portable sanctuary — is constructed. Israel wanders the wilderness for forty years due to disobedience.</p>
+      <p>No physical evidence has been found at Sinai for a large Israelite encampment, though the Sinai Peninsula has been sparsely surveyed. The Mosaic Law shows structural parallels to Hittite suzerainty treaties of the 14th–13th centuries BCE, suggesting the covenant form reflects an authentic ancient Near Eastern legal tradition.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Exodus 19–40; Leviticus; Numbers; Deuteronomy</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Mendenhall, G.E. (1954). "Covenant Forms in Israelite Tradition." Biblical Archaeologist 17(3).</em> Comparison with Hittite treaties.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ERA 3 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header">
+  <div class="era-label">Era III · c. 1210–1000 BCE</div>
+  <h2>Conquest of Canaan &amp; the Period of the Judges</h2>
+  <p>Joshua's campaigns, settlement, and the turbulent years before the monarchy</p>
+</div>
+
+<div class="section-intro">
+  The transition from wandering tribal confederation to settled nation in Canaan is one of the most archaeologically contested periods. New data from the Bronze Age Collapse and from sites like Hazor, Lachish, and Megiddo continue to reshape our understanding.
+</div>
+
+<div class="timeline">
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 1208 BCE</div>
+      <div class="event-title">Merneptah Stele — Earliest Mention of "Israel"</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Pharaoh Merneptah's victory stele, erected in Thebes after a campaign in Canaan, contains the line: "Israel is laid waste; its seed is no more." This is the earliest known extra-biblical reference to Israel as a people, confirming that a group called Israel existed in Canaan by c. 1208 BCE — providing a hard archaeological anchor for the biblical narrative.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Merneptah Stele (Cairo Egyptian Museum, JE 31408), c. 1208 BCE. Discovered by Flinders Petrie, 1896.</em></div>
+        <div class="ref-item"><span>Biblical:</span> Corresponds to the period of Judges; Israel established in Canaan.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 1210–1180 BCE</div>
+      <div class="event-title">Israelite Settlement in Canaan</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Joshua leads military campaigns to conquer Canaan, dividing the land among the twelve tribes. The Bible records the dramatic fall of Jericho and Ai, and campaigns throughout Canaan. Archaeologically, many Canaanite cities show destruction layers from this period (Hazor, Lachish), consistent with — though not conclusive proof of — Joshua's campaigns. Jericho (Tell es-Sultan) presents a complex picture: Kathleen Kenyon's excavations showed that the city was largely uninhabited or only lightly occupied in the Late Bronze Age, raising historical questions about the biblical account.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Joshua 1–24</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Kenyon, K. (1957). Digging Up Jericho. Ernest Benn.</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Ben-Tor, A. (2016). "Who Destroyed Canaanite Hazor?" Biblical Archaeology Review 42(4).</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 1180–1020 BCE</div>
+      <div class="event-title">The Period of the Judges — Tribal Confederation</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>After Joshua's death, Israel is governed by a series of charismatic military leaders called "judges" (shofetim). The cycle of apostasy, oppression, repentance, and deliverance characterizes this period. Key figures include Deborah, Gideon, Jephthah, and Samson. This era coincides with the Bronze Age Collapse (c. 1200–1150 BCE), one of the most catastrophic societal disruptions in ancient history, which destroyed the Hittite Empire and destabilized Egypt and the Levant.</p>
+      <p>The appearance of the Philistines — the "Sea Peoples" — in the coastal plains of Canaan is well-attested in Egyptian records and archaeology. They become Israel's primary enemy in this period and into the early monarchy.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Judges 1–21; 1 Samuel 1–7</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Cline, E. (2014). 1177 B.C.: The Year Civilization Collapsed. Princeton University Press.</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Medinet Habu reliefs of Ramesses III, c. 1175 BCE — depict battle with Sea Peoples (Luxor).</em></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ERA 4 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header">
+  <div class="era-label">Era IV · c. 1020–930 BCE</div>
+  <h2>The United Monarchy — Saul, David &amp; Solomon</h2>
+  <p>The golden age of Israel as a unified kingdom under three great kings</p>
+</div>
+
+<div class="section-intro">
+  The United Monarchy represents Israel at its territorial and cultural zenith in biblical memory. The historicity of David and Solomon has been intensely debated, but inscriptional evidence from the 9th century BCE confirms the existence of the Davidic dynasty.
+</div>
+
+<div class="timeline">
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 1020–1000 BCE</div>
+      <div class="event-title">King Saul — Israel's First Monarch</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>The people demand a king "like the other nations." The prophet Samuel anoints Saul of the tribe of Benjamin as Israel's first king. His reign is marked by military successes against the Philistines and Amalekites, but ultimately ends in tragedy at the Battle of Mount Gilboa, where Saul and three of his sons are killed. The Philistines post his body on the walls of Beth-Shean.</p>
+      <p>The site of Beth-Shean (Beit She'an) has been extensively excavated, confirming it as a major Philistine stronghold in this period. Iron Age I archaeological layers in the highlands of Canaan show the emergence of a new, distinctly non-Canaanite culture consistent with early Israelite settlement.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> 1 Samuel 8–31</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Mazar, A. (1992). Archaeology of the Land of the Bible. Doubleday.</em> Iron Age I highland village culture.</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Beth-Shean excavations, University of Pennsylvania Museum, 1921–1933.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 1000–960 BCE</div>
+      <div class="event-title">King David — Conquest of Jerusalem &amp; the Davidic Covenant</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>David, a shepherd from Bethlehem and giant-slayer, rises to become Israel's greatest king. He conquers Jerusalem (the Jebusite city) and makes it his capital, brings the Ark of the Covenant there, extends Israel's borders from Egypt to the Euphrates, and receives a divine covenant promising that his throne would endure forever. He also authors much of the Book of Psalms.</p>
+      <p>The Tel Dan Stele (c. 841 BCE), discovered in 1993–1994, contains an Aramaic inscription referencing "the House of David" (bytdwd), providing the first extra-biblical attestation of David's dynasty. The Mesha Stele (c. 840 BCE) also likely contains a reference. Excavations in the City of David (Jerusalem) by Eilat Mazar (2005) uncovered a large stone structure she proposed as David's palace, though this remains debated.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> 2 Samuel 1–24; 1 Chronicles 11–29; Psalms</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Tel Dan Stele (Israel Museum, Jerusalem), c. 841 BCE. Biran, A. & Naveh, J. (1993). IEJ 43, 81–98.</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Mazar, E. (2006). "Did I Find King David's Palace?" Biblical Archaeology Review 32(1).</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 960–930 BCE</div>
+      <div class="event-title">King Solomon — The First Temple &amp; Israel's Golden Age</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Solomon builds the First Temple in Jerusalem for the Ark of the Covenant, consolidates a vast empire with diplomatic marriages (including to Pharaoh's daughter), develops lucrative trade routes (including with the Queen of Sheba), and is celebrated for unparalleled wisdom. His reign marks the cultural and economic apex of ancient Israel.</p>
+      <p>Archaeological evidence for the Solomonic period is debated. Excavations at Megiddo, Hazor, and Gezer reveal monumental six-chamber gate structures that some scholars (Yigael Yadin) attributed to Solomon based on the biblical text (1 Kings 9:15), though this attribution is contested. Copper mining operations at Timna and Khirbat en-Nahas in the Arabah Valley show large-scale 10th century BCE activity.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> 1 Kings 1–11; 2 Chronicles 1–9; Song of Songs; Proverbs; Ecclesiastes</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Yadin, Y. (1958). "Solomon's City Wall and Gate at Gezer." IEJ 8.</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Levy, T. et al. (2008). "High-Precision Radiocarbon Dating and Historical Biblical Archaeology in Southern Jordan." PNAS 105(43).</em> Confirms 10th c. copper production.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ERA 5 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header">
+  <div class="era-label">Era V · c. 930–587 BCE</div>
+  <h2>Divided Kingdom — Israel &amp; Judah</h2>
+  <p>The split, the Assyrian conquest, and the prophetic age</p>
+</div>
+
+<div class="section-intro">
+  The death of Solomon brings the kingdom's division. The northern kingdom (Israel/Ephraim) and southern kingdom (Judah) exist separately for two centuries, a period for which biblical and Assyrian records provide remarkable cross-confirmation.
+</div>
+
+<div class="timeline">
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 930 BCE</div>
+      <div class="event-title">Division of the Kingdom</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Rehoboam (Solomon's son) refuses to lighten the tax burden, and ten northern tribes secede under Jeroboam I, forming the Kingdom of Israel (capital: Samaria) with the tribe of Judah and part of Benjamin remaining as the Kingdom of Judah (capital: Jerusalem). This schism weakens both kingdoms before foreign powers.</p>
+      <p>Egyptian Pharaoh Shishak (Shoshenq I) invades and sacks both Jerusalem and numerous cities of Israel c. 925 BCE — mentioned in the Bible and confirmed by Shoshenq's own victory relief at the Temple of Amun in Karnak, listing over 150 Israelite and Judahite cities.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> 1 Kings 12; 14:25–26</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Shoshenq I relief, Great Temple of Amun, Karnak, c. 925 BCE.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">853 BCE</div>
+      <div class="event-title">Battle of Qarqar — Israel in Assyrian Records</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>King Ahab of Israel (married to the Phoenician Jezebel) joins a coalition against the Assyrian king Shalmaneser III. The Assyrian Monolith Inscription records "Ahab the Israelite" contributing 2,000 chariots and 10,000 infantry — one of the largest contingents in the alliance. This is one of the best-attested cross-references between Assyrian annals and the biblical narrative.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> 1 Kings 16–22 (reign of Ahab)</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Kurkh Monolith (British Museum, ME 118884), Shalmaneser III, c. 853 BCE.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">722 BCE</div>
+      <div class="event-title">Fall of Samaria — Assyrian Exile of the Northern Kingdom</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>The Assyrian king Sargon II completes the conquest of the northern Kingdom of Israel, depopulates the capital Samaria, and deports over 27,000 Israelites to Mesopotamia and Media — the beginning of the "Ten Lost Tribes." He resettles the land with peoples from other conquered territories. This marks the end of the northern kingdom.</p>
+      <p>Sargon II's own annals (the Nimrud Prism and his palace inscriptions at Khorsabad) explicitly confirm the capture of Samaria and the deportation of Israelite citizens, providing exceptional biblical-archaeological correlation.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> 2 Kings 17:1–23</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Sargon II Annals (Oriental Institute, Chicago, A7369); Nimrud Prism. Tadmor, H. (1958). JCS 12.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">701 BCE</div>
+      <div class="event-title">Sennacherib's Siege of Jerusalem</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Assyrian king Sennacherib invades Judah under King Hezekiah, capturing 46 walled cities including Lachish. He besieges Jerusalem but does not take it — the Bible attributes this to divine intervention (an angel striking down the Assyrian army). Hezekiah had constructed the famous Siloam Tunnel to secure Jerusalem's water supply.</p>
+      <p>The Sennacherib Prism (Taylor Prism) confirms the campaign, stating he shut Hezekiah up "like a caged bird." The destruction of Lachish is vividly depicted in the Lachish Reliefs in the British Museum. The Siloam Tunnel inscription (Istanbul Archaeological Museum) is one of the oldest Hebrew inscriptions, confirming Hezekiah's engineering feat.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> 2 Kings 18–19; Isaiah 36–37</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Taylor Prism / Sennacherib Prism (British Museum, ME 91032), c. 691 BCE.</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Siloam Tunnel Inscription (Istanbul Archaeological Museum, c. 701 BCE).</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Lachish Reliefs (British Museum, ME 124905–124908).</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">587/586 BCE</div>
+      <div class="event-title">Fall of Jerusalem — Babylonian Exile</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Nebuchadnezzar II of Babylon destroys Jerusalem, burns Solomon's Temple, and deports the Judahite leadership and population to Babylon. This cataclysm reshapes Jewish identity and launches the great prophetic literature of exile — Ezekiel, Jeremiah, and the later chapters of Isaiah. The destruction is total: the monarchy, temple, and independent nationhood all end simultaneously.</p>
+      <p>The Babylonian Chronicle (British Museum) confirms Nebuchadnezzar's campaigns in Judah. Destruction layers at Jerusalem, Lachish, and dozens of Judahite towns show burning and abandonment precisely in the early 6th century BCE. The Lachish Letters (ostraca found at Tell ed-Duweir) document communications during the Babylonian advance.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> 2 Kings 24–25; Jeremiah 39, 52; Ezekiel; Lamentations</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Babylonian Chronicle (British Museum, ME 21946).</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Lachish Letters (British Museum and Israel Museum), c. 588 BCE.</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Lipschits, O. (2005). The Fall and Rise of Jerusalem. Eisenbrauns.</em></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ERA 6 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header">
+  <div class="era-label">Era VI · 539–63 BCE</div>
+  <h2>Return from Exile, Second Temple &amp; Hellenistic Period</h2>
+  <p>Persian permission, restoration, and the collision with Greek culture</p>
+</div>
+
+<div class="timeline">
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">539–515 BCE</div>
+      <div class="event-title">Cyrus the Great — Return from Babylon &amp; Second Temple</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Persian king Cyrus II conquers Babylon and issues a decree permitting the Jewish exiles to return to Judah and rebuild their Temple. The prophet Isaiah had remarkably named Cyrus by name generations earlier as God's instrument of restoration. Under Zerubbabel, Joshua the High Priest, Ezra, and Nehemiah, the Second Temple is completed (515 BCE) and Jerusalem's walls are rebuilt.</p>
+      <p>The Cyrus Cylinder (British Museum), discovered in Babylon in 1879, confirms Cyrus's policy of allowing displaced peoples to return to their homelands and restore their temples — directly corroborating the biblical Edict of Cyrus.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Ezra 1–6; Nehemiah; Isaiah 44:28–45:1; Haggai; Zechariah</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Cyrus Cylinder (British Museum, ME 90920), c. 539 BCE.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">333–167 BCE</div>
+      <div class="event-title">Alexander the Great &amp; Hellenization of Judea</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Alexander the Great conquers Persia and the entire Levant (333 BCE). After his death, Judea passes between the Ptolemies of Egypt and the Seleucids of Syria. Greek language, culture, and religion (Hellenism) penetrate deeply into Jewish society, creating a profound cultural and religious crisis. The Seleucid king Antiochus IV Epiphanes desecrates the Temple (167 BCE), banning Jewish practice and erecting an altar to Zeus.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> 1 Maccabees; 2 Maccabees; Daniel 8, 11</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Arrian, Anabasis Alexandri; Josephus, Antiquities of the Jews XII.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">167–63 BCE</div>
+      <div class="event-title">Maccabean Revolt &amp; Hasmonean Kingdom</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>The priestly Maccabee family leads a successful revolt against Seleucid oppression. Judas Maccabeus recaptures and rededicated the Temple in 164 BCE — commemorated to this day in the Jewish festival of Hanukkah. The Hasmonean dynasty rules an independent Jewish state until Roman conquest.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> 1 Maccabees 1–4</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Josephus, Antiquities XII.265–XIII.300. Seleucid and Hasmonean coins confirm the independent Judean state (Israel Antiquities Authority collections).</em></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ERA 7 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header">
+  <div class="era-label">Era VII · 63 BCE – 135 CE</div>
+  <h2>Roman Rule, the Second Temple's Destruction &amp; the Diaspora</h2>
+  <p>The most catastrophic rupture in Jewish history — the end of the Temple and national life in the land</p>
+</div>
+
+<div class="timeline">
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">63 BCE</div>
+      <div class="event-title">Roman Conquest — Pompey Enters Jerusalem</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Roman general Pompey captures Jerusalem, enters the Holy of Holies (though he does not plunder it), and incorporates Judea into the Roman sphere. Herod the Great is eventually installed as client king (37–4 BCE), and undertakes a massive expansion of the Second Temple — one of the ancient world's greatest architectural projects.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Josephus, Jewish War I.7; Antiquities XIV.4. Herodian masonry confirmed at Temple Mount (Western Wall) by archaeological surveys.</em></div>
+        <div class="ref-item"><span>Biblical:</span> Context for the New Testament; Luke 2:1; John 2:20</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">c. 6–30 CE</div>
+      <div class="event-title">Life of Jesus of Nazareth</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Jesus of Nazareth, a Jewish teacher and healer, conducts his ministry in Galilee and Judea, is crucified under Pontius Pilate, and — according to Christian faith — rises from the dead. His movement, rooted in Jewish messianic expectation, becomes Christianity and transforms world history. The New Testament presents Jesus as the fulfillment of Old Testament prophecy and the new covenant Messiah.</p>
+      <p>Roman historian Tacitus (Annals XV.44) and the Jewish historian Josephus (Antiquities XVIII.63–64; XX.200) provide non-Christian references to Jesus, confirming his historical existence and execution under Pilate. The ossuary inscribed "James, son of Joseph, brother of Jesus" (though debated) and a stone inscription naming "Pontius Pilate, Prefect of Judaea" (Caesarea Maritima, 1961) corroborate the gospel narrative's setting.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Matthew, Mark, Luke, John; all New Testament</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Tacitus, Annals XV.44 (c. 116 CE); Josephus, Antiquities XVIII.63–64 (Testimonium Flavianum).</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Pontius Pilate Inscription, Caesarea Maritima, 1961 (Israel Museum).</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">66–73 CE</div>
+      <div class="event-title">The Great Jewish Revolt &amp; Destruction of the Second Temple</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>A Jewish revolt against Rome ends catastrophically. General (later Emperor) Titus destroys Jerusalem and burns the Second Temple in 70 CE. Over one million Jews are killed or enslaved. The Jewish Zealots' last stand at the mountain fortress of Masada ends in mass suicide in 73 CE. Jesus had prophesied this destruction explicitly (Matthew 24:2), as had Josephus.</p>
+      <p>The Arch of Titus in Rome depicts the menorah and temple vessels being carried in triumph — one of the most vivid archaeological monuments confirming the biblical account. Excavations by Yigael Yadin at Masada (1963–65) confirm the Jewish presence, the Roman siege ramp, and the final destruction.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Biblical:</span> Matthew 24; Luke 21:20–24; Revelation</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Josephus, Jewish War VI–VII; Arch of Titus, Rome (c. 81 CE); Yadin, Y. (1966). Masada. Weidenfeld & Nicolson.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">132–135 CE</div>
+      <div class="event-title">Bar Kokhba Revolt — End of Jewish State in Antiquity</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>Simon bar Kokhba leads a second major revolt against Rome, initially retaking Jerusalem. The Roman Emperor Hadrian crushes the revolt, kills or enslaves hundreds of thousands of Jews, renames Jerusalem "Aelia Capitolina," and renames the province "Syria Palaestina" (from "Philistine") — deliberately erasing Jewish identity from the land. Jews are banned from Jerusalem. The Jewish people enter nearly 1,900 years of diaspora.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Bar Kokhba letters (Dead Sea Caves, 1960; Israel Museum). Cassius Dio, Roman History LXIX.12–14.</em></div>
+        <div class="ref-item"><span>Biblical / Rabbinic:</span> <em>Talmudic sources; connection to messianic expectation.</em></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ERA 8 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header">
+  <div class="era-label">Era VIII · 135 CE – 1897 CE</div>
+  <h2>Diaspora, Preservation &amp; the Rise of Zionism</h2>
+  <p>Nearly two millennia of Jewish life without a homeland — and the movement to return</p>
+</div>
+
+<div class="timeline">
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">135–600 CE</div>
+      <div class="event-title">Codification of Jewish Law — The Talmud</div>
+      <span class="source-tag tag-sci">Historical</span>
+    </div>
+    <div class="event-body">
+      <p>Scattered across the Roman Empire and Mesopotamia, Jewish communities preserve their identity through intense study of Torah. The Mishnah (c. 200 CE, compiled by Rabbi Judah HaNasi) and Talmud (Jerusalem Talmud c. 400 CE; Babylonian Talmud c. 500 CE) codify Jewish law, ethics, and tradition — becoming the backbone of Jewish civilization in exile for nearly two millennia.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Historical:</span> <em>Stemberger, G. (1996). Introduction to the Talmud and Midrash. T&T Clark.</em></div>
+        <div class="ref-item"><span>Biblical:</span> The Talmud is rabbinic commentary on Torah/Scripture.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">638 CE</div>
+      <div class="event-title">Islamic Conquest of Jerusalem</div>
+      <span class="source-tag tag-sci">Historical</span>
+    </div>
+    <div class="event-body">
+      <p>Caliph Umar ibn al-Khattab captures Jerusalem from the Byzantine Empire. The city becomes sacred to Islam (as the site of the Night Journey of Muhammad). The Dome of the Rock is later built on the Temple Mount (691 CE) by Caliph Abd al-Malik, marking a new chapter in the contested history of Jerusalem. Jews are gradually permitted to return to the city.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Historical:</span> <em>Gil, M. (1992). A History of Palestine 634–1099. Cambridge University Press.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">1881–1903</div>
+      <div class="event-title">First Aliyah — Jews Begin Returning to Palestine</div>
+      <span class="source-tag tag-sci">Historical</span>
+    </div>
+    <div class="event-body">
+      <p>Fleeing pogroms in Russia and Eastern Europe, approximately 35,000 Jews immigrate to Ottoman Palestine in the First Aliyah. They found agricultural settlements (moshavot) including Rishon LeZion and Petah Tikva. This is the first major modern wave of Jewish immigration to the land — the beginning of what Zionists would call the "ingathering of exiles," fulfilling biblical prophecy in their view.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Historical:</span> <em>Avineri, S. (1981). The Making of Modern Zionism. Basic Books.</em></div>
+        <div class="ref-item"><span>Biblical:</span> Isaiah 11:11–12; Ezekiel 36:24 — promises of a second ingathering of exiles.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">1897</div>
+      <div class="event-title">First Zionist Congress — Theodor Herzl</div>
+      <span class="source-tag tag-sci">Historical</span>
+    </div>
+    <div class="event-body">
+      <p>Theodor Herzl convenes the First Zionist Congress in Basel, Switzerland, formally launching the political movement for a Jewish homeland. In his diary, Herzl wrote: "In Basel I founded the Jewish State." The Congress establishes the Zionist Organization and adopts the Basel Program, calling for a Jewish homeland in Palestine "secured by public law." Twenty years and one world war later, this vision would begin to be realized.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Historical:</span> <em>Herzl, T. (1960). The Complete Diaries (ed. Patai). Herzl Press.</em></div>
+        <div class="ref-item"><span>Historical:</span> <em>Laqueur, W. (1972). A History of Zionism. Holt, Rinehart & Winston.</em></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ERA 9 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header">
+  <div class="era-label">Era IX · 1917–1948 CE</div>
+  <h2>British Mandate, Holocaust &amp; Statehood</h2>
+  <p>The darkest hour and the birth of the modern state</p>
+</div>
+
+<div class="timeline">
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">1917</div>
+      <div class="event-title">Balfour Declaration — Britain Supports Jewish Homeland</div>
+      <span class="source-tag tag-sci">Historical</span>
+    </div>
+    <div class="event-body">
+      <p>British Foreign Secretary Arthur James Balfour issues a letter to Lord Walter Rothschild declaring that the British government views "with favour the establishment in Palestine of a national home for the Jewish people." This is the first major governmental endorsement of Zionism and gives enormous international legitimacy to the movement. Britain subsequently receives the League of Nations Mandate for Palestine (1920).</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Historical:</span> <em>Balfour Declaration, Foreign Office, November 2, 1917 (British National Archives, FO 371/3083).</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">1933–1945</div>
+      <div class="event-title">The Holocaust — Six Million Jews Murdered</div>
+      <span class="source-tag tag-sci">Historical</span>
+    </div>
+    <div class="event-body">
+      <p>Nazi Germany under Adolf Hitler systematically murders approximately six million Jews — two-thirds of European Jewry — in the Holocaust (Shoah). The genocide, carried out in death camps, ghettos, and mass shootings, becomes the defining trauma of modern Jewish consciousness and radically accelerates international support for Jewish statehood. The Nuremberg trials establish crimes against humanity in international law.</p>
+      <p>The Holocaust is one of the most thoroughly documented events in history, confirmed by Nazi administrative records, survivor testimony, Allied military documentation, and extensive forensic archaeology at camp sites including Auschwitz-Birkenau, Treblinka, and Sobibor.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Historical:</span> <em>Hilberg, R. (1985). The Destruction of the European Jews (3 vols.). Yale University Press.</em></div>
+        <div class="ref-item"><span>Historical:</span> <em>Yad Vashem — The World Holocaust Remembrance Center, Jerusalem.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event both">
+    <div class="event-header">
+      <div class="event-date">May 14, 1948</div>
+      <div class="event-title">Declaration of the State of Israel</div>
+      <span class="source-tag tag-both">Both</span>
+    </div>
+    <div class="event-body">
+      <p>At 4:00 p.m. in Tel Aviv, David Ben-Gurion reads Israel's Declaration of Independence, establishing the State of Israel — the first Jewish state in nearly 2,000 years. Within hours, the United States and Soviet Union grant diplomatic recognition. The very next day, five Arab armies invade, beginning the Israeli War of Independence. Israel survives and expands its territory. The "Law of Return" (1950) gives every Jew the right to immigrate.</p>
+      <p>Many Jews and Christians interpret this event as a miraculous fulfillment of biblical prophecy — particularly Ezekiel 37 (the Valley of Dry Bones), Isaiah 66:8 ("Can a country be born in a day?"), and Amos 9:14–15. Secularly, it is also the product of decades of diplomatic, military, and demographic groundwork by the Zionist movement.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Historical:</span> <em>Israeli Declaration of Independence, May 14, 1948 (Israel State Archives).</em></div>
+        <div class="ref-item"><span>Historical:</span> <em>Morris, B. (2008). 1948: A History of the First Arab-Israeli War. Yale University Press.</em></div>
+        <div class="ref-item"><span>Biblical:</span> Ezekiel 37:1–14; Isaiah 66:8; Amos 9:14–15; Jeremiah 30:3; Deuteronomy 30:3–5</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ERA 10 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header">
+  <div class="era-label">Era X · 1948 – Present</div>
+  <h2>Modern State of Israel</h2>
+  <p>Wars, diplomacy, ingathering of exiles, and the ongoing story of a nation reborn</p>
+</div>
+
+<div class="timeline">
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">1967</div>
+      <div class="event-title">Six-Day War — Jerusalem Reunified</div>
+      <span class="source-tag tag-sci">Historical</span>
+    </div>
+    <div class="event-body">
+      <p>In six days, Israel defeats Egypt, Jordan, and Syria, capturing the Sinai Peninsula, Gaza Strip, West Bank, and most significantly, the Old City of Jerusalem including the Temple Mount — the first time Jews control the holy sites since 70 CE. General Moshe Dayan's announcement "We have returned to our holy places" becomes iconic. Many religious Jews and Christians see this as prophetically significant.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Historical:</span> <em>Oren, M.B. (2002). Six Days of War. Oxford University Press.</em></div>
+        <div class="ref-item"><span>Biblical:</span> Luke 21:24 — "Jerusalem will be trampled on by the Gentiles until the times of the Gentiles are fulfilled."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">1990s–2000s</div>
+      <div class="event-title">Mass Aliyah from the Former Soviet Union &amp; Ethiopia</div>
+      <span class="source-tag tag-sci">Historical</span>
+    </div>
+    <div class="event-body">
+      <p>Over one million Jews emigrate from the former Soviet Union to Israel between 1990–2000 following the USSR's collapse. Operation Solomon (1991) airlifts nearly 15,000 Ethiopian Jews (Beta Israel) to Israel in 36 hours. These mass immigrations transform Israeli society and are seen by many as a fulfillment of the biblical promise of the ingathering of exiles from the four corners of the earth.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Historical:</span> <em>Lustick, I. (1993). Unsettled States, Disputed Lands. Cornell University Press.</em></div>
+        <div class="ref-item"><span>Biblical:</span> Isaiah 11:11 — "…a second time to recover the remnant of his people… from the four quarters of the earth."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">2023–Present</div>
+      <div class="event-title">October 7 Attack &amp; Gaza War</div>
+      <span class="source-tag tag-sci">Historical</span>
+    </div>
+    <div class="event-body">
+      <p>On October 7, 2023 (the 50th anniversary of the Yom Kippur War), Hamas launches the deadliest attack on Jews since the Holocaust, killing approximately 1,200 Israelis and taking over 250 hostages from kibbutzim near Gaza. Israel responds with a military campaign in Gaza. The conflict reignites global debate over Israel's security, Palestinian rights, and the prospects for peace — themes that have defined Israeli existence since 1948.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Historical:</span> <em>UN reports; Israeli government records; international news documentation.</em></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SCIENTIFIC DNA SECTION -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="era-header" style="border-left-color: #2980b9;">
+  <div class="era-label" style="color:#2980b9;">Special Section · Genetics &amp; Science</div>
+  <h2>What Modern Science Says About Jewish Origins</h2>
+  <p>Population genetics, linguistics, and archaeology illuminate the deep history of the Jewish people</p>
+</div>
+
+<div class="section-intro">
+  Modern genomics provides remarkable insights into Jewish continuity and origins, generally supporting the biblical narrative of a people with deep Middle Eastern roots who remained genetically distinct through millennia of diaspora.
+</div>
+
+<div class="timeline">
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">Genetic Studies</div>
+      <div class="event-title">Jewish Populations Share Common Middle Eastern Ancestry</div>
+      <span class="source-tag tag-sci">Scientific</span>
+    </div>
+    <div class="event-body">
+      <p>Multiple large-scale genomic studies confirm that Jewish communities worldwide (Ashkenazi, Sephardi, Mizrahi, Ethiopian, and others) share significant genetic ancestry tracing back to the ancient Levant, consistent with the biblical account of a common origin in Canaan/Israel. Despite 2,000 years of diaspora on multiple continents, Jewish populations cluster genetically closer to each other and to Middle Eastern peoples than to their host populations.</p>
+      <p>The Cohen Modal Haplotype — a Y-chromosome marker common among Jewish men who carry the surname Cohen (the priestly lineage traced to Aaron, brother of Moses) — is found at high frequency across geographically distant Jewish communities, suggesting a genuine common patrilineal ancestor approximately 3,000 years ago.</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Behar, D.M. et al. (2010). "The genome-wide structure of the Jewish people." Nature 466, 238–242.</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Hammer, M.F. et al. (2000). "Jewish and Middle Eastern non-Jewish populations share a common pool of Y-chromosome biallelic haplotypes." PNAS 97(12):6769–6774.</em> (Cohen Modal Haplotype)</div>
+        <div class="ref-item"><span>Biblical:</span> Numbers 3:1–4; 1 Chronicles 24 — Aaronic priesthood lineage.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event science">
+    <div class="event-header">
+      <div class="event-date">Linguistic Science</div>
+      <div class="event-title">Hebrew — A Language Revived After 2,000 Years</div>
+      <span class="source-tag tag-sci">Scientific</span>
+    </div>
+    <div class="event-body">
+      <p>Biblical Hebrew, used as a liturgical language for nearly 1,900 years without native speakers, was revived as a living vernacular in the late 19th–early 20th centuries, primarily through the work of Eliezer Ben-Yehuda. Modern Israeli Hebrew is the only successful large-scale language revival in history — a linguistic phenomenon with no parallel. Today over 9 million people speak it as a first language. Linguists classify it as a Northwest Semitic language with continuity from inscriptions as early as the 10th century BCE (Gezer Calendar, c. 925 BCE).</p>
+      <div class="ref-box">
+        <div class="ref-box-title">References</div>
+        <div class="ref-item"><span>Scientific:</span> <em>Zuckermann, G. (2003). Language Contact and Lexical Enrichment in Israeli Hebrew. Palgrave Macmillan.</em></div>
+        <div class="ref-item"><span>Scientific:</span> <em>Gezer Calendar (Istanbul Archaeological Museum), c. 925 BCE — among earliest Hebrew inscriptions.</em></div>
+        <div class="ref-item"><span>Biblical:</span> Fulfilled in: Zephaniah 3:9 — "I will restore to the peoples a pure language."</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- end container -->
+
+<footer>
+  <p><strong>A Note on Sources & Methodology</strong></p>
+  <p>This timeline draws on the Hebrew Bible/Old Testament, New Testament, and Deuterocanonical books as primary religious texts; and on peer-reviewed archaeological reports, ancient Near Eastern inscriptions, classical histories (Josephus, Tacitus, Arrian), and modern genetic studies as scientific/historical sources. Where events are attested in both traditions, they are marked accordingly. Where only one tradition speaks, that is noted transparently.</p>
+  <p style="margin-top:12px; color: #8a9bb0;">Compiled for educational purposes. All scriptural quotations paraphrased for brevity. Archaeological interpretations represent mainstream scholarly consensus where available.</p>
+</footer>
+
+</body>
+</html>
