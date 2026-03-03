@@ -12,9 +12,6 @@
     --deep-blue: #1a2a4a;
     --parchment: #fdf6e3;
     --light-parchment: #fffdf7;
-    --science-blue: #1d4e7a;
-    --bible-maroon: #7a1d1d;
-    --both-green: #1d5e2a;
     --timeline-line: #c9a84c;
     --text-dark: #2c2c2c;
     --text-mid: #4a4a4a;
@@ -29,6 +26,46 @@
     color: var(--text-dark);
     line-height: 1.75;
   }
+
+  /* ── LANGUAGE SWITCHER ── */
+  .lang-bar {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 6px;
+  }
+  .lang-btn {
+    background: rgba(255,255,255,0.92);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--deep-blue);
+  }
+  .lang-btn .flag { font-size: 1.3rem; line-height: 1; }
+  .lang-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.22); }
+  .lang-btn.active { border-color: var(--gold); background: #fff; }
+  .lang-btn:not(.active) { opacity: 0.65; }
+
+  /* Language visibility */
+  [data-lang] { display: none; }
+  body.lang-en [data-lang="en"] { display: block; }
+  body.lang-en [data-lang="en"].inline { display: inline; }
+  body.lang-en [data-lang="en"].flex   { display: flex; }
+  body.lang-id [data-lang="id"] { display: block; }
+  body.lang-id [data-lang="id"].inline { display: inline; }
+  body.lang-id [data-lang="id"].flex   { display: flex; }
 
   /* ── COVER ── */
   .cover {
@@ -120,7 +157,6 @@
     padding: 28px 36px;
     border-left: 6px solid var(--gold);
     background: linear-gradient(90deg, rgba(184,134,11,0.08) 0%, transparent 80%);
-    position: relative;
   }
   .era-label {
     font-size: 0.72rem;
@@ -168,8 +204,6 @@
     transition: box-shadow 0.2s;
   }
   .event:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.12); }
-
-  /* dot on timeline */
   .event::before {
     content: '';
     position: absolute;
@@ -254,7 +288,6 @@
   .ref-item span { font-weight: 600; }
   .ref-item em { color: var(--text-mid); font-style: italic; }
 
-  /* ── SECTION INTRO ── */
   .section-intro {
     background: white;
     border: 1px solid var(--border-light);
@@ -267,7 +300,6 @@
     border-left: 4px solid var(--gold);
   }
 
-  /* ── FOOTER ── */
   footer {
     background: var(--deep-blue);
     color: #b0b8c8;
@@ -284,29 +316,62 @@
     .event::before { left: -40px; }
     .event-header { flex-direction: column; gap: 6px; }
     .event-date { min-width: auto; }
+    .lang-btn span.label { display: none; }
   }
 </style>
 </head>
-<body>
+<body class="lang-en">
 
-<!-- COVER -->
+<!-- LANGUAGE SWITCHER -->
+<div class="lang-bar">
+  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">
+    <span class="flag">🇬🇧</span><span class="label">EN</span>
+  </button>
+  <button class="lang-btn" id="btn-id" onclick="setLang('id')">
+    <span class="flag">🇮🇩</span><span class="label">ID</span>
+  </button>
+</div>
+
+<!-- ═══════════ COVER ═══════════ -->
 <div class="cover">
-  <div class="cover-subtitle">A Comprehensive Study</div>
-  <h1>The History of <span>Israel</span><br>as a Nation</h1>
-  <p class="cover-desc">Tracing the story of the Israelite people and the State of Israel through the lenses of Sacred Scripture and modern archaeology, history, and science</p>
-  <div class="cover-badges">
-    <span class="badge badge-bible">📖 Biblical</span>
-    <span class="badge badge-sci">🔬 Scientific</span>
-    <span class="badge badge-both">✦ Both Sources</span>
+  <!-- English -->
+  <div data-lang="en">
+    <div class="cover-subtitle">A Comprehensive Study</div>
+    <h1>The History of <span>Israel</span><br>as a Nation</h1>
+    <p class="cover-desc">Tracing the story of the Israelite people and the State of Israel through the lenses of Sacred Scripture and modern archaeology, history, and science</p>
+    <div class="cover-badges">
+      <span class="badge badge-bible">📖 Biblical</span>
+      <span class="badge badge-sci">🔬 Scientific</span>
+      <span class="badge badge-both">✦ Both Sources</span>
+    </div>
+  </div>
+  <!-- Bahasa Indonesia -->
+  <div data-lang="id">
+    <div class="cover-subtitle">Kajian Komprehensif</div>
+    <h1>Sejarah <span>Israel</span><br>sebagai Bangsa</h1>
+    <p class="cover-desc">Menelusuri kisah bangsa Israel dan Negara Israel melalui kacamata Kitab Suci dan arkeologi modern, sejarah, serta ilmu pengetahuan</p>
+    <div class="cover-badges">
+      <span class="badge badge-bible">📖 Alkitabiah</span>
+      <span class="badge badge-sci">🔬 Ilmiah</span>
+      <span class="badge badge-both">✦ Kedua Sumber</span>
+    </div>
   </div>
 </div>
 
 <!-- LEGEND -->
 <div class="legend">
-  <strong>KEY</strong>
-  <div class="legend-item"><div class="leg-dot leg-bible"></div> Biblical sources only</div>
-  <div class="legend-item"><div class="leg-dot leg-sci"></div> Scientific / Historical sources only</div>
-  <div class="legend-item"><div class="leg-dot leg-both"></div> Attested in both traditions</div>
+  <div data-lang="en" class="flex" style="gap:32px;flex-wrap:wrap;align-items:center;justify-content:center;width:100%">
+    <strong>KEY</strong>
+    <div class="legend-item"><div class="leg-dot leg-bible"></div> Biblical sources only</div>
+    <div class="legend-item"><div class="leg-dot leg-sci"></div> Scientific / Historical only</div>
+    <div class="legend-item"><div class="leg-dot leg-both"></div> Attested in both traditions</div>
+  </div>
+  <div data-lang="id" class="flex" style="gap:32px;flex-wrap:wrap;align-items:center;justify-content:center;width:100%">
+    <strong>KETERANGAN</strong>
+    <div class="legend-item"><div class="leg-dot leg-bible"></div> Sumber Alkitab saja</div>
+    <div class="legend-item"><div class="leg-dot leg-sci"></div> Ilmiah / Historis saja</div>
+    <div class="legend-item"><div class="leg-dot leg-both"></div> Dikonfirmasi kedua tradisi</div>
+  </div>
 </div>
 
 <div class="container">
@@ -316,12 +381,13 @@
 <!-- ═══════════════════════════════════════════════ -->
 <div class="era-header">
   <div class="era-label">Era I · c. 2100–1700 BCE</div>
-  <h2>The Patriarchal Age</h2>
-  <p>Origins of the Hebrew people — Abraham, Isaac, Jacob, and the twelve tribes</p>
+  <div data-lang="en"><h2>The Patriarchal Age</h2><p>Origins of the Hebrew people — Abraham, Isaac, Jacob, and the twelve tribes</p></div>
+  <div data-lang="id"><h2>Zaman Para Leluhur</h2><p>Asal-usul bangsa Ibrani — Abraham, Ishak, Yakub, dan dua belas suku</p></div>
 </div>
 
 <div class="section-intro">
-  The biblical narrative places the origins of Israel with a single family in Mesopotamia. Modern archaeology cannot confirm these figures as historical persons but finds the social, legal, and cultural details in Genesis consistent with Middle Bronze Age Canaan and the ancient Near East.
+  <div data-lang="en">The biblical narrative places the origins of Israel with a single family in Mesopotamia. Modern archaeology cannot confirm these figures as historical persons but finds the social, legal, and cultural details in Genesis consistent with Middle Bronze Age Canaan and the ancient Near East.</div>
+  <div data-lang="id">Narasi Alkitab menempatkan asal-usul Israel pada satu keluarga di Mesopotamia. Arkeologi modern tidak dapat mengonfirmasi tokoh-tokoh ini sebagai pribadi historis, namun menemukan detail sosial, hukum, dan budaya dalam Kejadian konsisten dengan Kanaan Zaman Perunggu Tengah dan Timur Dekat Kuno.</div>
 </div>
 
 <div class="timeline">
@@ -329,17 +395,29 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 2100–2000 BCE</div>
-      <div class="event-title">Abraham's Call and Migration from Ur</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Abraham's Call and Migration from Ur</div>
+        <div data-lang="id">Panggilan Abraham dan Migrasinya dari Ur</div>
+      </div>
+      <span class="source-tag tag-both">
+        <span data-lang="en" class="inline">Both</span>
+        <span data-lang="id" class="inline">Keduanya</span>
+      </span>
     </div>
     <div class="event-body">
-      <p>The biblical account opens with Abram (later Abraham) receiving a divine call to leave Ur of the Chaldeans in Mesopotamia and travel to Canaan, with a covenant promise that he would become the father of a great nation. This migration fits plausibly within the broader population movements of the Middle Bronze Age.</p>
-      <p>Archaeologically, Ur was a major Sumerian city-state (modern Tell el-Muqayyar, Iraq) at its height c. 2100 BCE. Cuneiform records show that Semitic names similar to "Abram" appear in tablets from Ebla and Mari, indicating the name type was common in the region and period described.</p>
+      <div data-lang="en">
+        <p>The biblical account opens with Abram (later Abraham) receiving a divine call to leave Ur of the Chaldeans in Mesopotamia and travel to Canaan, with a covenant promise that he would become the father of a great nation. This migration fits plausibly within the broader population movements of the Middle Bronze Age.</p>
+        <p>Archaeologically, Ur was a major Sumerian city-state (modern Tell el-Muqayyar, Iraq) at its height c. 2100 BCE. Cuneiform records show that Semitic names similar to "Abram" appear in tablets from Ebla and Mari, indicating the name type was common in the region and period described.</p>
+      </div>
+      <div data-lang="id">
+        <p>Kisah Alkitab dibuka dengan Abram (kemudian Abraham) menerima panggilan ilahi untuk meninggalkan Ur orang Kasdim di Mesopotamia dan pergi ke Kanaan, dengan janji perjanjian bahwa ia akan menjadi bapa suatu bangsa yang besar. Migrasi ini secara masuk akal sesuai dengan perpindahan penduduk yang lebih luas pada Zaman Perunggu Tengah.</p>
+        <p>Secara arkeologis, Ur adalah kota-negara Sumeria besar (sekarang Tell el-Muqayyar, Irak) pada puncaknya sekitar 2100 SM. Catatan aksara paku menunjukkan bahwa nama-nama Semitik yang mirip "Abram" muncul dalam tablet dari Ebla dan Mari.</p>
+      </div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Genesis 11:27–12:9 — "The LORD said to Abram, 'Go from your country… to the land I will show you.'"</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Woolley, C.L. (1934). Ur Excavations. British Museum & University of Pennsylvania.</em> Confirms Ur as major urban center; Middle Bronze Age migration patterns documented.</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Pettinato, G. (1981). The Archives of Ebla. Doubleday.</em> Names parallel to Abram attested in Eblaite texts.</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Genesis 11:27–12:9</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Woolley, C.L. (1934). Ur Excavations. British Museum & University of Pennsylvania.</em></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Pettinato, G. (1981). The Archives of Ebla. Doubleday.</em></div>
       </div>
     </div>
   </div>
@@ -347,16 +425,19 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 2000–1900 BCE</div>
-      <div class="event-title">The Covenant of Circumcision & Birth of Isaac</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">The Covenant of Circumcision &amp; Birth of Isaac</div>
+        <div data-lang="id">Perjanjian Sunat &amp; Kelahiran Ishak</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>God establishes the Abrahamic covenant, which includes circumcision as a physical sign and the promise of the land of Canaan to Abraham's descendants. The birth of Isaac to the aged Sarah is presented as a miraculous fulfillment of the covenant promise.</p>
-      <p>Circumcision as a ritual practice is attested in ancient Egypt (reliefs at Saqqara, c. 2400 BCE) and across the ancient Semitic world, confirming it was a known religious and social practice in the period.</p>
+      <div data-lang="en"><p>God establishes the Abrahamic covenant, which includes circumcision as a physical sign and the promise of the land of Canaan to Abraham's descendants. The birth of Isaac to the aged Sarah is presented as a miraculous fulfillment of the covenant promise. Circumcision as a ritual practice is attested in ancient Egypt (reliefs at Saqqara, c. 2400 BCE) and across the ancient Semitic world.</p></div>
+      <div data-lang="id"><p>Allah menetapkan perjanjian Abraham, yang mencakup sunat sebagai tanda fisik dan janji tanah Kanaan bagi keturunan Abraham. Kelahiran Ishak dari Sara yang sudah tua dipresentasikan sebagai penggenapan ajaib dari janji perjanjian. Sunat sebagai praktik ritual tercatat dalam Mesir kuno (relief di Saqqara, sekitar 2400 SM) dan di seluruh dunia Semitik kuno.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Genesis 15, 17, 21:1–7</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Saqqara tomb relief (Ankh-Mahor tomb, c. 2400 BCE) — earliest known depiction of circumcision, Egyptian Museum, Cairo.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Genesis 15, 17, 21:1–7</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Saqqara tomb relief (Ankh-Mahor tomb, c. 2400 BCE) — Egyptian Museum, Cairo.</em></div>
       </div>
     </div>
   </div>
@@ -364,15 +445,19 @@
   <div class="event bible">
     <div class="event-header">
       <div class="event-date">c. 1900–1800 BCE</div>
-      <div class="event-title">Isaac, Rebekah, and the Birth of Jacob & Esau</div>
-      <span class="source-tag tag-bible">Biblical</span>
+      <div class="event-title">
+        <div data-lang="en">Isaac, Rebekah, and the Birth of Jacob &amp; Esau</div>
+        <div data-lang="id">Ishak, Ribka, dan Kelahiran Yakub &amp; Esau</div>
+      </div>
+      <span class="source-tag tag-bible"><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitabiah</span></span>
     </div>
     <div class="event-body">
-      <p>Isaac carries the covenant line. His twin sons Jacob and Esau represent the birth of two nations (Israel and Edom). Jacob, through cunning, obtains his brother's birthright and his father's blessing — foreshadowing Israel's future as the bearer of the covenant.</p>
+      <div data-lang="en"><p>Isaac carries the covenant line. His twin sons Jacob and Esau represent the birth of two nations (Israel and Edom). Jacob, through cunning, obtains his brother's birthright and his father's blessing — foreshadowing Israel's future as the bearer of the covenant.</p></div>
+      <div data-lang="id"><p>Ishak meneruskan garis perjanjian. Kedua putra kembarnya, Yakub dan Esau, melambangkan lahirnya dua bangsa (Israel dan Edom). Yakub, melalui kelicikannya, memperoleh hak kesulungan saudaranya dan berkat ayahnya — pertanda masa depan Israel sebagai pembawa perjanjian.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Genesis 24–27</div>
-        <div class="ref-item"><span>Note:</span> <em>No direct extra-biblical attestation for Isaac as a historical individual; the social customs (birthright, oral blessings) mirror practices found in Nuzi tablets from the 15th–14th c. BCE (Harvard Semitic Museum).</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Genesis 24–27</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Note</span><span data-lang="id" class="inline">Catatan</span>:</span> <em>Nuzi tablets (15th–14th c. BCE, Harvard Semitic Museum) confirm similar social customs of that era.</em></div>
       </div>
     </div>
   </div>
@@ -380,34 +465,36 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 1800–1700 BCE</div>
-      <div class="event-title">Jacob Becomes "Israel" — Twelve Tribes Established</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Jacob Becomes "Israel" — Twelve Tribes Established</div>
+        <div data-lang="id">Yakub Menjadi "Israel" — Dua Belas Suku Terbentuk</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Jacob wrestles with a divine figure at Peniel and is renamed "Israel" (meaning "one who strives with God" in Hebrew). His twelve sons become the eponymous ancestors of the twelve tribes of Israel. The family migrates to Egypt during a severe famine, with Joseph (sold into slavery by his brothers) now in a position of power in Pharaoh's court.</p>
-      <p>The name "Israel" appears in an extra-biblical context for the first time in the Merneptah Stele (c. 1208 BCE), confirming a people group by this name existed in Canaan. Egyptian records confirm Semitic peoples ("Asiatics" / Hyksos) settling in the Nile Delta from c. 1800 BCE onward.</p>
+      <div data-lang="en"><p>Jacob wrestles with a divine figure at Peniel and is renamed "Israel" (meaning "one who strives with God"). His twelve sons become the eponymous ancestors of the twelve tribes. The family migrates to Egypt during a severe famine, with Joseph — sold into slavery by his brothers — now in a position of power in Pharaoh's court. Egyptian records confirm Semitic peoples settling in the Nile Delta from c. 1800 BCE.</p></div>
+      <div data-lang="id"><p>Yakub bergulat dengan sosok ilahi di Peniel dan diberi nama "Israel" (artinya "orang yang bergulat dengan Allah"). Kedua belas putranya menjadi nenek moyang eponomius dari dua belas suku. Keluarga tersebut bermigrasi ke Mesir saat kelaparan parah, dengan Yusuf — yang dijual sebagai budak oleh saudara-saudaranya — kini menduduki posisi kekuasaan di istana Firaun. Catatan Mesir mengonfirmasi bangsa-bangsa Semitik yang menetap di Delta Nil sejak sekitar 1800 SM.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Genesis 32:28; 37–50</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Merneptah Stele (Cairo Museum, CG 34025), c. 1208 BCE — earliest extra-biblical mention of "Israel."</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Bietak, M. (1996). Avaris: The Capital of the Hyksos. British Museum Press.</em> Confirms Semitic settlement in eastern Nile Delta.</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Genesis 32:28; 37–50</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Merneptah Stele (Cairo Museum, CG 34025), c. 1208 BCE — earliest extra-biblical mention of "Israel."</em></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Bietak, M. (1996). Avaris: The Capital of the Hyksos. British Museum Press.</em></div>
       </div>
     </div>
   </div>
 
-</div><!-- end timeline -->
+</div>
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ERA 2 -->
-<!-- ═══════════════════════════════════════════════ -->
 <div class="era-header">
   <div class="era-label">Era II · c. 1700–1200 BCE</div>
-  <h2>Egypt, the Exodus &amp; Wilderness</h2>
-  <p>From bondage to liberation — Moses, the Exodus, and the giving of the Law</p>
+  <div data-lang="en"><h2>Egypt, the Exodus &amp; Wilderness</h2><p>From bondage to liberation — Moses, the Exodus, and the giving of the Law</p></div>
+  <div data-lang="id"><h2>Mesir, Keluaran &amp; Padang Gurun</h2><p>Dari perbudakan menuju pembebasan — Musa, Keluaran, dan pemberian Hukum Taurat</p></div>
 </div>
 
 <div class="section-intro">
-  The Exodus is the defining event of Israelite identity and faith. Scholarly debate over its historicity is vigorous; while direct Egyptian records of the Exodus have not been found, several lines of archaeological evidence illuminate the plausibility of the narrative's core claims.
+  <div data-lang="en">The Exodus is the defining event of Israelite identity and faith. Scholarly debate over its historicity is vigorous; while direct Egyptian records of the Exodus have not been found, several lines of archaeological evidence illuminate the plausibility of the narrative's core claims.</div>
+  <div data-lang="id">Keluaran adalah peristiwa penentu identitas dan iman Israel. Perdebatan ilmiah tentang historisitasnya sangat sengit; meskipun catatan Mesir langsung tentang Keluaran belum ditemukan, beberapa jalur bukti arkeologis menerangi plausibilitas klaim inti narasi tersebut.</div>
 </div>
 
 <div class="timeline">
@@ -415,15 +502,19 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 1700–1550 BCE</div>
-      <div class="event-title">Israelites in Egypt — The Hyksos Period</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Israelites in Egypt — The Hyksos Period</div>
+        <div data-lang="id">Bangsa Israel di Mesir — Periode Hyksos</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>The Bible describes the Israelites multiplying greatly in Egypt until "a new king arose who did not know Joseph," initiating their oppression as slave laborers. Archaeologists have identified the Hyksos — a Semitic people who ruled Lower Egypt c. 1650–1550 BCE — as a possible historical echo of the Israelite sojourn. Their capital was at Avaris (modern Tell el-Dab'a) in the eastern Nile Delta, exactly the region the Bible associates with Israel (the land of Goshen).</p>
+      <div data-lang="en"><p>The Bible describes the Israelites multiplying greatly in Egypt until "a new king arose who did not know Joseph," initiating their oppression as slave laborers. The Hyksos — a Semitic people who ruled Lower Egypt c. 1650–1550 BCE — are a possible historical echo of the Israelite sojourn. Their capital was Avaris (modern Tell el-Dab'a) in the eastern Nile Delta, exactly the region associated with Israel (the land of Goshen).</p></div>
+      <div data-lang="id"><p>Alkitab menggambarkan bangsa Israel yang berkembang biak pesat di Mesir sampai "seorang raja baru yang tidak mengenal Yusuf" memulai penindasan mereka sebagai pekerja budak. Bangsa Hyksos — bangsa Semitik yang memerintah Mesir Hilir sekitar 1650–1550 SM — merupakan gema historis yang mungkin dari pengembaraan Israel. Ibu kota mereka adalah Avaris (sekarang Tell el-Dab'a) di Delta Nil timur, tepat di wilayah yang dikaitkan dengan Israel (tanah Gosyen).</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Exodus 1:8–14</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Bietak, M. (2010). "Avaris." UCLA Encyclopedia of Egyptology.</em> Extensive Semitic occupation of eastern Delta confirmed by pottery, architecture, and burial customs.</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Exodus 1:8–14</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Bietak, M. (2010). "Avaris." UCLA Encyclopedia of Egyptology.</em></div>
       </div>
     </div>
   </div>
@@ -431,18 +522,20 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 1280–1250 BCE</div>
-      <div class="event-title">Moses, the Plagues, and the Exodus from Egypt</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Moses, the Plagues, and the Exodus from Egypt</div>
+        <div data-lang="id">Musa, Tulah-tulah, dan Keluaran dari Mesir</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Moses, raised in Pharaoh's court, leads the Israelites out of Egypt following ten plagues and the dramatic crossing of the Red Sea (Sea of Reeds). The traditional date aligns with the reign of Ramesses II (1279–1213 BCE), whose massive building projects used conscripted labor and whose capital Pi-Ramesses was located in the eastern Nile Delta.</p>
-      <p>A volcanic eruption of Thera/Santorini (c. 1600 BCE, or possibly later) has been proposed by some scientists as a natural explanation for several of the plagues (darkness, hail, water turning red from volcanic ash). The Ipuwer Papyrus (Egyptian Museum, Leiden) describes social chaos and natural disasters strikingly parallel to the Exodus plagues, though its dating and connection remain debated.</p>
+      <div data-lang="en"><p>Moses, raised in Pharaoh's court, leads the Israelites out of Egypt following ten plagues and the dramatic crossing of the Red Sea (Sea of Reeds). The traditional date aligns with the reign of Ramesses II (1279–1213 BCE), whose building projects used conscripted labor and whose capital Pi-Ramesses was in the eastern Nile Delta. The Ipuwer Papyrus describes social chaos and natural disasters strikingly parallel to the Exodus plagues.</p></div>
+      <div data-lang="id"><p>Musa, yang dibesarkan di istana Firaun, memimpin bangsa Israel keluar dari Mesir setelah sepuluh tulah dan penyeberangan dramatis Laut Merah (Laut Suf). Tanggal tradisional sesuai dengan masa pemerintahan Ramesses II (1279–1213 SM), yang proyek pembangunannya menggunakan tenaga kerja paksa dan ibu kotanya Pi-Ramesses berada di Delta Nil timur. Papirus Ipuwer menggambarkan kekacauan sosial dan bencana alam yang sangat mirip dengan tulah-tulah Keluaran.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Exodus 2–15</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Kitchen, K.A. (2003). On the Reliability of the Old Testament. Eerdmans.</em> Detailed case for Ramesside dating of the Exodus.</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Ipuwer Papyrus (Leiden Papyrus I 344, c. 1850–1650 BCE). Rijksmuseum van Oudheden, Leiden.</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Santorini eruption: Manning, S. et al. (2006). Science, 312, 548–552.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Exodus 2–15</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Kitchen, K.A. (2003). On the Reliability of the Old Testament. Eerdmans.</em></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Ipuwer Papyrus (Leiden Papyrus I 344). Rijksmuseum van Oudheden, Leiden.</em></div>
       </div>
     </div>
   </div>
@@ -450,33 +543,30 @@
   <div class="event bible">
     <div class="event-header">
       <div class="event-date">c. 1250–1210 BCE</div>
-      <div class="event-title">The Sinai Covenant — Torah Given to Moses</div>
-      <span class="source-tag tag-bible">Biblical</span>
+      <div class="event-title">
+        <div data-lang="en">The Sinai Covenant — Torah Given to Moses</div>
+        <div data-lang="id">Perjanjian Sinai — Taurat Diberikan kepada Musa</div>
+      </div>
+      <span class="source-tag tag-bible"><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitabiah</span></span>
     </div>
     <div class="event-body">
-      <p>At Mount Sinai, God gives Moses the Ten Commandments and the broader Torah (Law), establishing Israel as a covenant nation with a distinct legal, ethical, and liturgical identity. The tabernacle — a portable sanctuary — is constructed. Israel wanders the wilderness for forty years due to disobedience.</p>
-      <p>No physical evidence has been found at Sinai for a large Israelite encampment, though the Sinai Peninsula has been sparsely surveyed. The Mosaic Law shows structural parallels to Hittite suzerainty treaties of the 14th–13th centuries BCE, suggesting the covenant form reflects an authentic ancient Near Eastern legal tradition.</p>
+      <div data-lang="en"><p>At Mount Sinai, God gives Moses the Ten Commandments and the broader Torah (Law), establishing Israel as a covenant nation. The Mosaic Law shows structural parallels to Hittite suzerainty treaties of the 14th–13th centuries BCE, suggesting the covenant form reflects an authentic ancient Near Eastern legal tradition.</p></div>
+      <div data-lang="id"><p>Di Gunung Sinai, Allah memberikan kepada Musa Sepuluh Perintah dan Taurat yang lebih luas, menetapkan Israel sebagai bangsa perjanjian. Hukum Musa menunjukkan kesamaan struktural dengan perjanjian kekuasaan Het dari abad ke-14–13 SM, yang menunjukkan bahwa bentuk perjanjian ini mencerminkan tradisi hukum Timur Dekat Kuno yang autentik.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Exodus 19–40; Leviticus; Numbers; Deuteronomy</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Mendenhall, G.E. (1954). "Covenant Forms in Israelite Tradition." Biblical Archaeologist 17(3).</em> Comparison with Hittite treaties.</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Exodus 19–40; Leviticus; Numbers; Deuteronomy</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Mendenhall, G.E. (1954). "Covenant Forms in Israelite Tradition." Biblical Archaeologist 17(3).</em></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ERA 3 -->
-<!-- ═══════════════════════════════════════════════ -->
 <div class="era-header">
   <div class="era-label">Era III · c. 1210–1000 BCE</div>
-  <h2>Conquest of Canaan &amp; the Period of the Judges</h2>
-  <p>Joshua's campaigns, settlement, and the turbulent years before the monarchy</p>
-</div>
-
-<div class="section-intro">
-  The transition from wandering tribal confederation to settled nation in Canaan is one of the most archaeologically contested periods. New data from the Bronze Age Collapse and from sites like Hazor, Lachish, and Megiddo continue to reshape our understanding.
+  <div data-lang="en"><h2>Conquest of Canaan &amp; the Period of the Judges</h2><p>Joshua's campaigns, settlement, and the turbulent years before the monarchy</p></div>
+  <div data-lang="id"><h2>Penaklukan Kanaan &amp; Zaman Para Hakim</h2><p>Kampanye Yosua, pemukiman, dan tahun-tahun bergolak sebelum monarki</p></div>
 </div>
 
 <div class="timeline">
@@ -484,15 +574,18 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 1208 BCE</div>
-      <div class="event-title">Merneptah Stele — Earliest Mention of "Israel"</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Merneptah Stele — Earliest Mention of "Israel"</div>
+        <div data-lang="id">Stele Merneptah — Penyebutan Tertua "Israel"</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Pharaoh Merneptah's victory stele, erected in Thebes after a campaign in Canaan, contains the line: "Israel is laid waste; its seed is no more." This is the earliest known extra-biblical reference to Israel as a people, confirming that a group called Israel existed in Canaan by c. 1208 BCE — providing a hard archaeological anchor for the biblical narrative.</p>
+      <div data-lang="en"><p>Pharaoh Merneptah's victory stele contains the line: "Israel is laid waste; its seed is no more." This is the earliest known extra-biblical reference to Israel as a people, confirming that a group called Israel existed in Canaan by c. 1208 BCE — providing a hard archaeological anchor for the biblical narrative.</p></div>
+      <div data-lang="id"><p>Stele kemenangan Firaun Merneptah memuat kalimat: "Israel telah hancur; benihnya tidak ada lagi." Ini adalah referensi ekstra-Alkitab tertua yang diketahui tentang Israel sebagai sebuah bangsa, yang mengonfirmasi bahwa kelompok bernama Israel telah ada di Kanaan sekitar 1208 SM — memberikan jangkar arkeologis yang kuat bagi narasi Alkitab.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Merneptah Stele (Cairo Egyptian Museum, JE 31408), c. 1208 BCE. Discovered by Flinders Petrie, 1896.</em></div>
-        <div class="ref-item"><span>Biblical:</span> Corresponds to the period of Judges; Israel established in Canaan.</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Merneptah Stele (Cairo Egyptian Museum, JE 31408), c. 1208 BCE. Discovered by Flinders Petrie, 1896.</em></div>
       </div>
     </div>
   </div>
@@ -500,16 +593,20 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 1210–1180 BCE</div>
-      <div class="event-title">Israelite Settlement in Canaan</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Israelite Settlement in Canaan</div>
+        <div data-lang="id">Pemukiman Israel di Kanaan</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Joshua leads military campaigns to conquer Canaan, dividing the land among the twelve tribes. The Bible records the dramatic fall of Jericho and Ai, and campaigns throughout Canaan. Archaeologically, many Canaanite cities show destruction layers from this period (Hazor, Lachish), consistent with — though not conclusive proof of — Joshua's campaigns. Jericho (Tell es-Sultan) presents a complex picture: Kathleen Kenyon's excavations showed that the city was largely uninhabited or only lightly occupied in the Late Bronze Age, raising historical questions about the biblical account.</p>
+      <div data-lang="en"><p>Joshua leads military campaigns to conquer Canaan, dividing the land among the twelve tribes. Many Canaanite cities show destruction layers from this period (Hazor, Lachish). Jericho (Tell es-Sultan) presents a complex picture: Kathleen Kenyon's excavations showed the city was largely uninhabited in the Late Bronze Age, raising historical questions about the biblical account.</p></div>
+      <div data-lang="id"><p>Yosua memimpin kampanye militer untuk menaklukkan Kanaan, membagi tanah di antara dua belas suku. Banyak kota Kanaan menunjukkan lapisan kehancuran dari periode ini (Hazor, Lakhis). Yeriko (Tell es-Sultan) menunjukkan gambaran yang kompleks: penggalian Kathleen Kenyon menunjukkan kota tersebut sebagian besar tidak dihuni pada Zaman Perunggu Akhir, yang menimbulkan pertanyaan historis tentang catatan Alkitab.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Joshua 1–24</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Kenyon, K. (1957). Digging Up Jericho. Ernest Benn.</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Ben-Tor, A. (2016). "Who Destroyed Canaanite Hazor?" Biblical Archaeology Review 42(4).</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Joshua 1–24</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Kenyon, K. (1957). Digging Up Jericho. Ernest Benn.</em></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Ben-Tor, A. (2016). "Who Destroyed Canaanite Hazor?" Biblical Archaeology Review 42(4).</em></div>
       </div>
     </div>
   </div>
@@ -517,34 +614,30 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 1180–1020 BCE</div>
-      <div class="event-title">The Period of the Judges — Tribal Confederation</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">The Period of the Judges — Tribal Confederation</div>
+        <div data-lang="id">Zaman Para Hakim — Konfederasi Suku</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>After Joshua's death, Israel is governed by a series of charismatic military leaders called "judges" (shofetim). The cycle of apostasy, oppression, repentance, and deliverance characterizes this period. Key figures include Deborah, Gideon, Jephthah, and Samson. This era coincides with the Bronze Age Collapse (c. 1200–1150 BCE), one of the most catastrophic societal disruptions in ancient history, which destroyed the Hittite Empire and destabilized Egypt and the Levant.</p>
-      <p>The appearance of the Philistines — the "Sea Peoples" — in the coastal plains of Canaan is well-attested in Egyptian records and archaeology. They become Israel's primary enemy in this period and into the early monarchy.</p>
+      <div data-lang="en"><p>Israel is governed by charismatic military leaders called "judges" (shofetim). Key figures include Deborah, Gideon, Jephthah, and Samson. This era coincides with the Bronze Age Collapse (c. 1200–1150 BCE). The Philistines — the "Sea Peoples" — appear in the coastal plains; Egyptian records and archaeology confirm their presence and their role as Israel's primary adversary.</p></div>
+      <div data-lang="id"><p>Israel dipimpin oleh pemimpin militer karismatik yang disebut "hakim" (shofetim). Tokoh-tokoh utama termasuk Debora, Gideon, Yefta, dan Simson. Era ini bersamaan dengan Keruntuhan Zaman Perunggu (sekitar 1200–1150 SM). Bangsa Filistin — "Bangsa Laut" — muncul di dataran pesisir; catatan Mesir dan arkeologi mengonfirmasi kehadiran mereka sebagai lawan utama Israel.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Judges 1–21; 1 Samuel 1–7</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Cline, E. (2014). 1177 B.C.: The Year Civilization Collapsed. Princeton University Press.</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Medinet Habu reliefs of Ramesses III, c. 1175 BCE — depict battle with Sea Peoples (Luxor).</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Judges 1–21; 1 Samuel 1–7</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Cline, E. (2014). 1177 B.C.: The Year Civilization Collapsed. Princeton University Press.</em></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ERA 4 -->
-<!-- ═══════════════════════════════════════════════ -->
 <div class="era-header">
   <div class="era-label">Era IV · c. 1020–930 BCE</div>
-  <h2>The United Monarchy — Saul, David &amp; Solomon</h2>
-  <p>The golden age of Israel as a unified kingdom under three great kings</p>
-</div>
-
-<div class="section-intro">
-  The United Monarchy represents Israel at its territorial and cultural zenith in biblical memory. The historicity of David and Solomon has been intensely debated, but inscriptional evidence from the 9th century BCE confirms the existence of the Davidic dynasty.
+  <div data-lang="en"><h2>The United Monarchy — Saul, David &amp; Solomon</h2><p>The golden age of Israel as a unified kingdom</p></div>
+  <div data-lang="id"><h2>Kerajaan Bersatu — Saul, Daud &amp; Salomo</h2><p>Zaman keemasan Israel sebagai kerajaan yang bersatu</p></div>
 </div>
 
 <div class="timeline">
@@ -552,17 +645,19 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 1020–1000 BCE</div>
-      <div class="event-title">King Saul — Israel's First Monarch</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">King Saul — Israel's First Monarch</div>
+        <div data-lang="id">Raja Saul — Raja Pertama Israel</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>The people demand a king "like the other nations." The prophet Samuel anoints Saul of the tribe of Benjamin as Israel's first king. His reign is marked by military successes against the Philistines and Amalekites, but ultimately ends in tragedy at the Battle of Mount Gilboa, where Saul and three of his sons are killed. The Philistines post his body on the walls of Beth-Shean.</p>
-      <p>The site of Beth-Shean (Beit She'an) has been extensively excavated, confirming it as a major Philistine stronghold in this period. Iron Age I archaeological layers in the highlands of Canaan show the emergence of a new, distinctly non-Canaanite culture consistent with early Israelite settlement.</p>
+      <div data-lang="en"><p>The people demand a king "like the other nations." Samuel anoints Saul of the tribe of Benjamin as Israel's first king. His reign ends in tragedy at the Battle of Mount Gilboa, where Saul and three of his sons are killed by the Philistines. The site of Beth-Shean has been extensively excavated, confirming it as a major Philistine stronghold in this period.</p></div>
+      <div data-lang="id"><p>Rakyat menuntut seorang raja "seperti bangsa-bangsa lain." Samuel mengurapi Saul dari suku Benyamin sebagai raja pertama Israel. Pemerintahannya berakhir tragis dalam Pertempuran Gunung Gilboa, di mana Saul dan tiga putranya dibunuh oleh bangsa Filistin. Situs Bet-Sean telah digali secara ekstensif, mengonfirmasinya sebagai benteng Filistin besar pada periode ini.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> 1 Samuel 8–31</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Mazar, A. (1992). Archaeology of the Land of the Bible. Doubleday.</em> Iron Age I highland village culture.</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Beth-Shean excavations, University of Pennsylvania Museum, 1921–1933.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> 1 Samuel 8–31</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Mazar, A. (1992). Archaeology of the Land of the Bible. Doubleday.</em></div>
       </div>
     </div>
   </div>
@@ -570,17 +665,19 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 1000–960 BCE</div>
-      <div class="event-title">King David — Conquest of Jerusalem &amp; the Davidic Covenant</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">King David — Conquest of Jerusalem &amp; the Davidic Covenant</div>
+        <div data-lang="id">Raja Daud — Penaklukan Yerusalem &amp; Perjanjian Daud</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>David, a shepherd from Bethlehem and giant-slayer, rises to become Israel's greatest king. He conquers Jerusalem (the Jebusite city) and makes it his capital, brings the Ark of the Covenant there, extends Israel's borders from Egypt to the Euphrates, and receives a divine covenant promising that his throne would endure forever. He also authors much of the Book of Psalms.</p>
-      <p>The Tel Dan Stele (c. 841 BCE), discovered in 1993–1994, contains an Aramaic inscription referencing "the House of David" (bytdwd), providing the first extra-biblical attestation of David's dynasty. The Mesha Stele (c. 840 BCE) also likely contains a reference. Excavations in the City of David (Jerusalem) by Eilat Mazar (2005) uncovered a large stone structure she proposed as David's palace, though this remains debated.</p>
+      <div data-lang="en"><p>David conquers Jerusalem, makes it his capital, brings the Ark of the Covenant there, and receives a divine covenant promising his throne would endure forever. The Tel Dan Stele (c. 841 BCE), discovered in 1993–1994, contains the first extra-biblical attestation of "the House of David" (bytdwd) — confirming the historical existence of his dynasty.</p></div>
+      <div data-lang="id"><p>Daud menaklukkan Yerusalem, menjadikannya ibu kota, membawa Tabut Perjanjian ke sana, dan menerima perjanjian ilahi yang menjanjikan takhtanya akan bertahan selamanya. Stele Tel Dan (sekitar 841 SM), ditemukan pada 1993–1994, memuat bukti ekstra-Alkitab pertama tentang "Wangsa Daud" (bytdwd) — mengonfirmasi keberadaan historis dinasti tersebut.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> 2 Samuel 1–24; 1 Chronicles 11–29; Psalms</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Tel Dan Stele (Israel Museum, Jerusalem), c. 841 BCE. Biran, A. & Naveh, J. (1993). IEJ 43, 81–98.</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Mazar, E. (2006). "Did I Find King David's Palace?" Biblical Archaeology Review 32(1).</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> 2 Samuel 1–24; Psalms</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Tel Dan Stele (Israel Museum, Jerusalem), c. 841 BCE. Biran & Naveh (1993). IEJ 43, 81–98.</em></div>
       </div>
     </div>
   </div>
@@ -588,34 +685,30 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 960–930 BCE</div>
-      <div class="event-title">King Solomon — The First Temple &amp; Israel's Golden Age</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">King Solomon — The First Temple &amp; Israel's Golden Age</div>
+        <div data-lang="id">Raja Salomo — Bait Suci Pertama &amp; Zaman Keemasan Israel</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Solomon builds the First Temple in Jerusalem for the Ark of the Covenant, consolidates a vast empire with diplomatic marriages (including to Pharaoh's daughter), develops lucrative trade routes (including with the Queen of Sheba), and is celebrated for unparalleled wisdom. His reign marks the cultural and economic apex of ancient Israel.</p>
-      <p>Archaeological evidence for the Solomonic period is debated. Excavations at Megiddo, Hazor, and Gezer reveal monumental six-chamber gate structures that some scholars (Yigael Yadin) attributed to Solomon based on the biblical text (1 Kings 9:15), though this attribution is contested. Copper mining operations at Timna and Khirbat en-Nahas in the Arabah Valley show large-scale 10th century BCE activity.</p>
+      <div data-lang="en"><p>Solomon builds the First Temple in Jerusalem, consolidates a vast empire through diplomatic marriages, develops lucrative trade routes including with the Queen of Sheba, and is celebrated for unparalleled wisdom. Excavations at Megiddo, Hazor, and Gezer reveal monumental gate structures attributed to Solomon, and copper mining operations in the Arabah Valley confirm large-scale 10th century BCE activity.</p></div>
+      <div data-lang="id"><p>Salomo membangun Bait Suci Pertama di Yerusalem, mengonsolidasikan kerajaan yang luas melalui pernikahan diplomatik, mengembangkan jalur perdagangan yang menguntungkan termasuk dengan Ratu Syeba, dan dirayakan atas kebijaksanaannya yang tak tertandingi. Penggalian di Megido, Hazor, dan Gezer mengungkapkan struktur gerbang monumental yang dikaitkan dengan Salomo, dan operasi penambangan tembaga di Lembah Araba mengonfirmasi aktivitas besar-besaran pada abad ke-10 SM.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> 1 Kings 1–11; 2 Chronicles 1–9; Song of Songs; Proverbs; Ecclesiastes</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Yadin, Y. (1958). "Solomon's City Wall and Gate at Gezer." IEJ 8.</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Levy, T. et al. (2008). "High-Precision Radiocarbon Dating and Historical Biblical Archaeology in Southern Jordan." PNAS 105(43).</em> Confirms 10th c. copper production.</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> 1 Kings 1–11; Proverbs; Ecclesiastes; Song of Songs</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Levy, T. et al. (2008). PNAS 105(43) — confirms 10th c. copper production in Arabah.</em></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ERA 5 -->
-<!-- ═══════════════════════════════════════════════ -->
 <div class="era-header">
   <div class="era-label">Era V · c. 930–587 BCE</div>
-  <h2>Divided Kingdom — Israel &amp; Judah</h2>
-  <p>The split, the Assyrian conquest, and the prophetic age</p>
-</div>
-
-<div class="section-intro">
-  The death of Solomon brings the kingdom's division. The northern kingdom (Israel/Ephraim) and southern kingdom (Judah) exist separately for two centuries, a period for which biblical and Assyrian records provide remarkable cross-confirmation.
+  <div data-lang="en"><h2>Divided Kingdom — Israel &amp; Judah</h2><p>The split, the Assyrian conquest, and the prophetic age</p></div>
+  <div data-lang="id"><h2>Kerajaan Terbagi — Israel &amp; Yehuda</h2><p>Perpecahan, penaklukan Asiria, dan zaman kenabian</p></div>
 </div>
 
 <div class="timeline">
@@ -623,16 +716,19 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">c. 930 BCE</div>
-      <div class="event-title">Division of the Kingdom</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Division of the Kingdom</div>
+        <div data-lang="id">Perpecahan Kerajaan</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Rehoboam (Solomon's son) refuses to lighten the tax burden, and ten northern tribes secede under Jeroboam I, forming the Kingdom of Israel (capital: Samaria) with the tribe of Judah and part of Benjamin remaining as the Kingdom of Judah (capital: Jerusalem). This schism weakens both kingdoms before foreign powers.</p>
-      <p>Egyptian Pharaoh Shishak (Shoshenq I) invades and sacks both Jerusalem and numerous cities of Israel c. 925 BCE — mentioned in the Bible and confirmed by Shoshenq's own victory relief at the Temple of Amun in Karnak, listing over 150 Israelite and Judahite cities.</p>
+      <div data-lang="en"><p>Rehoboam refuses to lighten the tax burden, and ten northern tribes secede under Jeroboam I, forming the Kingdom of Israel (capital: Samaria). Judah and Benjamin remain as the Kingdom of Judah (capital: Jerusalem). Egyptian Pharaoh Shoshenq I invades c. 925 BCE — confirmed by his own victory relief at the Temple of Amun in Karnak, listing over 150 Israelite and Judahite cities.</p></div>
+      <div data-lang="id"><p>Rehabeam menolak untuk meringankan beban pajak, dan sepuluh suku utara memisahkan diri di bawah Yerobeam I, membentuk Kerajaan Israel (ibu kota: Samaria). Yehuda dan Benyamin tetap sebagai Kerajaan Yehuda (ibu kota: Yerusalem). Firaun Mesir Syisyak (Syosyenk I) menyerang sekitar 925 SM — dikonfirmasi oleh relief kemenangannya sendiri di Kuil Amun di Karnak.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> 1 Kings 12; 14:25–26</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Shoshenq I relief, Great Temple of Amun, Karnak, c. 925 BCE.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> 1 Kings 12; 14:25–26</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Shoshenq I relief, Great Temple of Amun, Karnak, c. 925 BCE.</em></div>
       </div>
     </div>
   </div>
@@ -640,15 +736,19 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">853 BCE</div>
-      <div class="event-title">Battle of Qarqar — Israel in Assyrian Records</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Battle of Qarqar — Israel in Assyrian Records</div>
+        <div data-lang="id">Pertempuran Qarqar — Israel dalam Catatan Asiria</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>King Ahab of Israel (married to the Phoenician Jezebel) joins a coalition against the Assyrian king Shalmaneser III. The Assyrian Monolith Inscription records "Ahab the Israelite" contributing 2,000 chariots and 10,000 infantry — one of the largest contingents in the alliance. This is one of the best-attested cross-references between Assyrian annals and the biblical narrative.</p>
+      <div data-lang="en"><p>King Ahab of Israel joins a coalition against Assyrian king Shalmaneser III. The Assyrian Monolith Inscription records "Ahab the Israelite" contributing 2,000 chariots and 10,000 infantry — one of the best cross-references between Assyrian annals and the biblical narrative.</p></div>
+      <div data-lang="id"><p>Raja Ahab dari Israel bergabung dengan koalisi melawan raja Asiria Salmaneser III. Prasasti Monolit Asiria mencatat "Ahab orang Israel" menyumbang 2.000 kereta dan 10.000 infanteri — salah satu referensi silang terbaik antara annal Asiria dan narasi Alkitab.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> 1 Kings 16–22 (reign of Ahab)</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Kurkh Monolith (British Museum, ME 118884), Shalmaneser III, c. 853 BCE.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> 1 Kings 16–22</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Kurkh Monolith (British Museum, ME 118884), c. 853 BCE.</em></div>
       </div>
     </div>
   </div>
@@ -656,16 +756,19 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">722 BCE</div>
-      <div class="event-title">Fall of Samaria — Assyrian Exile of the Northern Kingdom</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Fall of Samaria — Assyrian Exile of the Northern Kingdom</div>
+        <div data-lang="id">Kejatuhan Samaria — Pembuangan Asiria atas Kerajaan Utara</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>The Assyrian king Sargon II completes the conquest of the northern Kingdom of Israel, depopulates the capital Samaria, and deports over 27,000 Israelites to Mesopotamia and Media — the beginning of the "Ten Lost Tribes." He resettles the land with peoples from other conquered territories. This marks the end of the northern kingdom.</p>
-      <p>Sargon II's own annals (the Nimrud Prism and his palace inscriptions at Khorsabad) explicitly confirm the capture of Samaria and the deportation of Israelite citizens, providing exceptional biblical-archaeological correlation.</p>
+      <div data-lang="en"><p>Assyrian king Sargon II completes the conquest of the northern Kingdom of Israel, depopulates Samaria, and deports over 27,000 Israelites to Mesopotamia — the beginning of the "Ten Lost Tribes." Sargon II's own annals explicitly confirm the capture of Samaria and the deportation of Israelite citizens.</p></div>
+      <div data-lang="id"><p>Raja Asiria Sargon II menyelesaikan penaklukan Kerajaan Israel bagian utara, mengosongkan Samaria, dan mengdeportasi lebih dari 27.000 orang Israel ke Mesopotamia — awal mula dari "Sepuluh Suku yang Hilang." Annal Sargon II sendiri secara eksplisit mengonfirmasi penangkapan Samaria dan deportasi warga Israel.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> 2 Kings 17:1–23</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Sargon II Annals (Oriental Institute, Chicago, A7369); Nimrud Prism. Tadmor, H. (1958). JCS 12.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> 2 Kings 17:1–23</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Sargon II Annals (Oriental Institute, Chicago, A7369).</em></div>
       </div>
     </div>
   </div>
@@ -673,18 +776,19 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">701 BCE</div>
-      <div class="event-title">Sennacherib's Siege of Jerusalem</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Sennacherib's Siege of Jerusalem</div>
+        <div data-lang="id">Pengepungan Yerusalem oleh Sanherib</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Assyrian king Sennacherib invades Judah under King Hezekiah, capturing 46 walled cities including Lachish. He besieges Jerusalem but does not take it — the Bible attributes this to divine intervention (an angel striking down the Assyrian army). Hezekiah had constructed the famous Siloam Tunnel to secure Jerusalem's water supply.</p>
-      <p>The Sennacherib Prism (Taylor Prism) confirms the campaign, stating he shut Hezekiah up "like a caged bird." The destruction of Lachish is vividly depicted in the Lachish Reliefs in the British Museum. The Siloam Tunnel inscription (Istanbul Archaeological Museum) is one of the oldest Hebrew inscriptions, confirming Hezekiah's engineering feat.</p>
+      <div data-lang="en"><p>Sennacherib invades Judah, capturing 46 walled cities including Lachish. He besieges Jerusalem but does not take it. The Sennacherib Prism states he shut Hezekiah up "like a caged bird." The Siloam Tunnel inscription (Istanbul) and the Lachish Reliefs (British Museum) corroborate the biblical account in remarkable detail.</p></div>
+      <div data-lang="id"><p>Sanherib menyerang Yehuda, merebut 46 kota bertembok termasuk Lakhis. Ia mengepung Yerusalem tetapi tidak berhasil merebutnya. Prisma Sanherib menyatakan ia mengurung Hizkia "seperti burung dalam sangkar." Prasasti Terowongan Siloam (Istanbul) dan Relief Lakhis (British Museum) menguatkan kisah Alkitab secara luar biasa rinci.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> 2 Kings 18–19; Isaiah 36–37</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Taylor Prism / Sennacherib Prism (British Museum, ME 91032), c. 691 BCE.</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Siloam Tunnel Inscription (Istanbul Archaeological Museum, c. 701 BCE).</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Lachish Reliefs (British Museum, ME 124905–124908).</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> 2 Kings 18–19; Isaiah 36–37</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Taylor Prism (British Museum, ME 91032); Siloam Tunnel Inscription (Istanbul Archaeological Museum).</em></div>
       </div>
     </div>
   </div>
@@ -692,31 +796,30 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">587/586 BCE</div>
-      <div class="event-title">Fall of Jerusalem — Babylonian Exile</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Fall of Jerusalem — Babylonian Exile</div>
+        <div data-lang="id">Kejatuhan Yerusalem — Pembuangan ke Babilon</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Nebuchadnezzar II of Babylon destroys Jerusalem, burns Solomon's Temple, and deports the Judahite leadership and population to Babylon. This cataclysm reshapes Jewish identity and launches the great prophetic literature of exile — Ezekiel, Jeremiah, and the later chapters of Isaiah. The destruction is total: the monarchy, temple, and independent nationhood all end simultaneously.</p>
-      <p>The Babylonian Chronicle (British Museum) confirms Nebuchadnezzar's campaigns in Judah. Destruction layers at Jerusalem, Lachish, and dozens of Judahite towns show burning and abandonment precisely in the early 6th century BCE. The Lachish Letters (ostraca found at Tell ed-Duweir) document communications during the Babylonian advance.</p>
+      <div data-lang="en"><p>Nebuchadnezzar II destroys Jerusalem, burns Solomon's Temple, and deports the Judahite population to Babylon. The Babylonian Chronicle confirms Nebuchadnezzar's campaigns in Judah. Destruction layers at Jerusalem, Lachish, and dozens of Judahite towns confirm burning and abandonment in the early 6th century BCE.</p></div>
+      <div data-lang="id"><p>Nebukadnezar II menghancurkan Yerusalem, membakar Bait Salomo, dan mendeportasi penduduk Yehuda ke Babilon. Kronik Babilonia mengonfirmasi kampanye Nebukadnezar di Yehuda. Lapisan kehancuran di Yerusalem, Lakhis, dan lusinan kota Yehuda mengonfirmasi pembakaran dan pengabaian pada awal abad ke-6 SM.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> 2 Kings 24–25; Jeremiah 39, 52; Ezekiel; Lamentations</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Babylonian Chronicle (British Museum, ME 21946).</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Lachish Letters (British Museum and Israel Museum), c. 588 BCE.</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Lipschits, O. (2005). The Fall and Rise of Jerusalem. Eisenbrauns.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> 2 Kings 24–25; Jeremiah 39, 52; Lamentations</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Babylonian Chronicle (British Museum, ME 21946); Lachish Letters (British Museum).</em></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ERA 6 -->
-<!-- ═══════════════════════════════════════════════ -->
 <div class="era-header">
   <div class="era-label">Era VI · 539–63 BCE</div>
-  <h2>Return from Exile, Second Temple &amp; Hellenistic Period</h2>
-  <p>Persian permission, restoration, and the collision with Greek culture</p>
+  <div data-lang="en"><h2>Return from Exile, Second Temple &amp; Hellenistic Period</h2><p>Persian permission, restoration, and the collision with Greek culture</p></div>
+  <div data-lang="id"><h2>Kembali dari Pembuangan, Bait Kedua &amp; Periode Hellenistik</h2><p>Izin Persia, pemulihan, dan benturan dengan budaya Yunani</p></div>
 </div>
 
 <div class="timeline">
@@ -724,32 +827,19 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">539–515 BCE</div>
-      <div class="event-title">Cyrus the Great — Return from Babylon &amp; Second Temple</div>
-      <span class="source-tag tag-both">Both</span>
-    </div>
-    <div class="event-body">
-      <p>Persian king Cyrus II conquers Babylon and issues a decree permitting the Jewish exiles to return to Judah and rebuild their Temple. The prophet Isaiah had remarkably named Cyrus by name generations earlier as God's instrument of restoration. Under Zerubbabel, Joshua the High Priest, Ezra, and Nehemiah, the Second Temple is completed (515 BCE) and Jerusalem's walls are rebuilt.</p>
-      <p>The Cyrus Cylinder (British Museum), discovered in Babylon in 1879, confirms Cyrus's policy of allowing displaced peoples to return to their homelands and restore their temples — directly corroborating the biblical Edict of Cyrus.</p>
-      <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Ezra 1–6; Nehemiah; Isaiah 44:28–45:1; Haggai; Zechariah</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Cyrus Cylinder (British Museum, ME 90920), c. 539 BCE.</em></div>
+      <div class="event-title">
+        <div data-lang="en">Cyrus the Great — Return from Babylon &amp; Second Temple</div>
+        <div data-lang="id">Koresh yang Agung — Kembali dari Babilon &amp; Bait Kedua</div>
       </div>
-    </div>
-  </div>
-
-  <div class="event both">
-    <div class="event-header">
-      <div class="event-date">333–167 BCE</div>
-      <div class="event-title">Alexander the Great &amp; Hellenization of Judea</div>
-      <span class="source-tag tag-both">Both</span>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Alexander the Great conquers Persia and the entire Levant (333 BCE). After his death, Judea passes between the Ptolemies of Egypt and the Seleucids of Syria. Greek language, culture, and religion (Hellenism) penetrate deeply into Jewish society, creating a profound cultural and religious crisis. The Seleucid king Antiochus IV Epiphanes desecrates the Temple (167 BCE), banning Jewish practice and erecting an altar to Zeus.</p>
+      <div data-lang="en"><p>Persian king Cyrus II issues a decree permitting Jewish exiles to return to Judah and rebuild their Temple. The Cyrus Cylinder (British Museum), discovered in 1879, confirms Cyrus's policy of allowing displaced peoples to return to their homelands and restore their temples — directly corroborating the biblical Edict of Cyrus. The Second Temple is completed in 515 BCE.</p></div>
+      <div data-lang="id"><p>Raja Persia Koresh II mengeluarkan dekret yang mengizinkan para pengasingan Yahudi untuk kembali ke Yehuda dan membangun kembali Bait Suci mereka. Silinder Koresh (British Museum), ditemukan pada 1879, mengonfirmasi kebijakan Koresh yang mengizinkan bangsa-bangsa yang terlantar untuk kembali ke tanah air mereka — secara langsung menguatkan Dekret Koresh dalam Alkitab. Bait Kedua diselesaikan pada 515 SM.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> 1 Maccabees; 2 Maccabees; Daniel 8, 11</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Arrian, Anabasis Alexandri; Josephus, Antiquities of the Jews XII.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Ezra 1–6; Isaiah 44:28–45:1</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Cyrus Cylinder (British Museum, ME 90920), c. 539 BCE.</em></div>
       </div>
     </div>
   </div>
@@ -757,62 +847,50 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">167–63 BCE</div>
-      <div class="event-title">Maccabean Revolt &amp; Hasmonean Kingdom</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Maccabean Revolt &amp; Hasmonean Kingdom</div>
+        <div data-lang="id">Pemberontakan Makabe &amp; Kerajaan Hasmonean</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>The priestly Maccabee family leads a successful revolt against Seleucid oppression. Judas Maccabeus recaptures and rededicated the Temple in 164 BCE — commemorated to this day in the Jewish festival of Hanukkah. The Hasmonean dynasty rules an independent Jewish state until Roman conquest.</p>
+      <div data-lang="en"><p>The Maccabee family leads a successful revolt against Seleucid oppression. Judas Maccabeus recaptures and rededicates the Temple in 164 BCE — commemorated to this day in Hanukkah. The Hasmonean dynasty rules an independent Jewish state until Roman conquest in 63 BCE.</p></div>
+      <div data-lang="id"><p>Keluarga Makabe memimpin pemberontakan yang berhasil melawan penindasan Seleukid. Yudas Makabe merebut kembali dan mempersembahkan kembali Bait Suci pada 164 SM — dikenang hingga hari ini dalam perayaan Hanukkah. Dinasti Hasmonean memerintah negara Yahudi merdeka hingga penaklukan Romawi pada 63 SM.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> 1 Maccabees 1–4</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Josephus, Antiquities XII.265–XIII.300. Seleucid and Hasmonean coins confirm the independent Judean state (Israel Antiquities Authority collections).</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> 1 Maccabees 1–4</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Josephus, Antiquities XII.265–XIII.300.</em></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ERA 7 -->
-<!-- ═══════════════════════════════════════════════ -->
 <div class="era-header">
   <div class="era-label">Era VII · 63 BCE – 135 CE</div>
-  <h2>Roman Rule, the Second Temple's Destruction &amp; the Diaspora</h2>
-  <p>The most catastrophic rupture in Jewish history — the end of the Temple and national life in the land</p>
+  <div data-lang="en"><h2>Roman Rule, the Second Temple's Destruction &amp; the Diaspora</h2><p>The end of the Temple and national life in the land</p></div>
+  <div data-lang="id"><h2>Kekuasaan Romawi, Kehancuran Bait Kedua &amp; Diaspora</h2><p>Berakhirnya Bait Suci dan kehidupan nasional di tanah Israel</p></div>
 </div>
 
 <div class="timeline">
 
   <div class="event both">
     <div class="event-header">
-      <div class="event-date">63 BCE</div>
-      <div class="event-title">Roman Conquest — Pompey Enters Jerusalem</div>
-      <span class="source-tag tag-both">Both</span>
-    </div>
-    <div class="event-body">
-      <p>Roman general Pompey captures Jerusalem, enters the Holy of Holies (though he does not plunder it), and incorporates Judea into the Roman sphere. Herod the Great is eventually installed as client king (37–4 BCE), and undertakes a massive expansion of the Second Temple — one of the ancient world's greatest architectural projects.</p>
-      <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Josephus, Jewish War I.7; Antiquities XIV.4. Herodian masonry confirmed at Temple Mount (Western Wall) by archaeological surveys.</em></div>
-        <div class="ref-item"><span>Biblical:</span> Context for the New Testament; Luke 2:1; John 2:20</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="event both">
-    <div class="event-header">
       <div class="event-date">c. 6–30 CE</div>
-      <div class="event-title">Life of Jesus of Nazareth</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Life of Jesus of Nazareth</div>
+        <div data-lang="id">Kehidupan Yesus dari Nazaret</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Jesus of Nazareth, a Jewish teacher and healer, conducts his ministry in Galilee and Judea, is crucified under Pontius Pilate, and — according to Christian faith — rises from the dead. His movement, rooted in Jewish messianic expectation, becomes Christianity and transforms world history. The New Testament presents Jesus as the fulfillment of Old Testament prophecy and the new covenant Messiah.</p>
-      <p>Roman historian Tacitus (Annals XV.44) and the Jewish historian Josephus (Antiquities XVIII.63–64; XX.200) provide non-Christian references to Jesus, confirming his historical existence and execution under Pilate. The ossuary inscribed "James, son of Joseph, brother of Jesus" (though debated) and a stone inscription naming "Pontius Pilate, Prefect of Judaea" (Caesarea Maritima, 1961) corroborate the gospel narrative's setting.</p>
+      <div data-lang="en"><p>Jesus of Nazareth, a Jewish teacher, conducts his ministry in Galilee and Judea, is crucified under Pontius Pilate, and — according to Christian faith — rises from the dead. Roman historian Tacitus (Annals XV.44) and Josephus (Antiquities XVIII.63–64) provide non-Christian references confirming his historical existence. The Pontius Pilate Inscription found at Caesarea Maritima (1961) confirms the gospel's setting.</p></div>
+      <div data-lang="id"><p>Yesus dari Nazaret, seorang guru Yahudi, menjalankan pelayanan-Nya di Galilea dan Yudea, disalibkan di bawah Pontius Pilatus, dan — menurut iman Kristen — bangkit dari kematian. Sejarawan Romawi Tacitus (Annals XV.44) dan Yosefus (Antiquities XVIII.63–64) memberikan referensi non-Kristen yang mengonfirmasi keberadaan historisnya. Prasasti Pontius Pilatus yang ditemukan di Kaisarea Maritima (1961) mengonfirmasi latar belakang Injil.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Matthew, Mark, Luke, John; all New Testament</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Tacitus, Annals XV.44 (c. 116 CE); Josephus, Antiquities XVIII.63–64 (Testimonium Flavianum).</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Pontius Pilate Inscription, Caesarea Maritima, 1961 (Israel Museum).</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Matthew, Mark, Luke, John</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Tacitus, Annals XV.44; Josephus, Antiquities XVIII.63–64; Pontius Pilate Inscription, Israel Museum.</em></div>
       </div>
     </div>
   </div>
@@ -820,16 +898,19 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">66–73 CE</div>
-      <div class="event-title">The Great Jewish Revolt &amp; Destruction of the Second Temple</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">The Great Jewish Revolt &amp; Destruction of the Second Temple</div>
+        <div data-lang="id">Pemberontakan Besar Yahudi &amp; Kehancuran Bait Kedua</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>A Jewish revolt against Rome ends catastrophically. General (later Emperor) Titus destroys Jerusalem and burns the Second Temple in 70 CE. Over one million Jews are killed or enslaved. The Jewish Zealots' last stand at the mountain fortress of Masada ends in mass suicide in 73 CE. Jesus had prophesied this destruction explicitly (Matthew 24:2), as had Josephus.</p>
-      <p>The Arch of Titus in Rome depicts the menorah and temple vessels being carried in triumph — one of the most vivid archaeological monuments confirming the biblical account. Excavations by Yigael Yadin at Masada (1963–65) confirm the Jewish presence, the Roman siege ramp, and the final destruction.</p>
+      <div data-lang="en"><p>A Jewish revolt against Rome ends catastrophically. Titus destroys Jerusalem and burns the Second Temple in 70 CE. The Arch of Titus in Rome — depicting the menorah being carried in triumph — is one of history's most vivid archaeological monuments confirming the biblical account. Yigael Yadin's excavations at Masada (1963–65) confirm the Jewish presence and the final Roman siege.</p></div>
+      <div data-lang="id"><p>Pemberontakan Yahudi melawan Roma berakhir dengan bencana. Titus menghancurkan Yerusalem dan membakar Bait Kedua pada 70 M. Lengkungan Titus di Roma — yang menggambarkan menorah dibawa dalam arak-arakan kemenangan — adalah salah satu monumen arkeologis paling vivid dalam sejarah yang mengonfirmasi kisah Alkitab. Penggalian Yigael Yadin di Masada (1963–65) mengonfirmasi kehadiran Yahudi dan pengepungan Romawi terakhir.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Biblical:</span> Matthew 24; Luke 21:20–24; Revelation</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Josephus, Jewish War VI–VII; Arch of Titus, Rome (c. 81 CE); Yadin, Y. (1966). Masada. Weidenfeld & Nicolson.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Matthew 24; Luke 21:20–24</div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Josephus, Jewish War VI–VII; Arch of Titus, Rome (c. 81 CE); Yadin, Y. (1966). Masada.</em></div>
       </div>
     </div>
   </div>
@@ -837,28 +918,29 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">132–135 CE</div>
-      <div class="event-title">Bar Kokhba Revolt — End of Jewish State in Antiquity</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Bar Kokhba Revolt — End of Jewish State in Antiquity</div>
+        <div data-lang="id">Pemberontakan Bar Kokhba — Akhir Negara Yahudi di Zaman Kuno</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>Simon bar Kokhba leads a second major revolt against Rome, initially retaking Jerusalem. The Roman Emperor Hadrian crushes the revolt, kills or enslaves hundreds of thousands of Jews, renames Jerusalem "Aelia Capitolina," and renames the province "Syria Palaestina" (from "Philistine") — deliberately erasing Jewish identity from the land. Jews are banned from Jerusalem. The Jewish people enter nearly 1,900 years of diaspora.</p>
+      <div data-lang="en"><p>Emperor Hadrian crushes the Bar Kokhba revolt, renames Jerusalem "Aelia Capitolina," and renames the province "Syria Palaestina" — deliberately erasing Jewish identity from the land. Jews are banned from Jerusalem. The Jewish people enter nearly 1,900 years of diaspora.</p></div>
+      <div data-lang="id"><p>Kaisar Hadrian menghancurkan pemberontakan Bar Kokhba, mengganti nama Yerusalem menjadi "Aelia Capitolina," dan mengganti nama provinsi menjadi "Syria Palaestina" — dengan sengaja menghapus identitas Yahudi dari tanah tersebut. Orang-orang Yahudi dilarang memasuki Yerusalem. Bangsa Yahudi memasuki hampir 1.900 tahun diaspora.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Bar Kokhba letters (Dead Sea Caves, 1960; Israel Museum). Cassius Dio, Roman History LXIX.12–14.</em></div>
-        <div class="ref-item"><span>Biblical / Rabbinic:</span> <em>Talmudic sources; connection to messianic expectation.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Bar Kokhba letters (Israel Museum); Cassius Dio, Roman History LXIX.12–14.</em></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ERA 8 -->
-<!-- ═══════════════════════════════════════════════ -->
 <div class="era-header">
   <div class="era-label">Era VIII · 135 CE – 1897 CE</div>
-  <h2>Diaspora, Preservation &amp; the Rise of Zionism</h2>
-  <p>Nearly two millennia of Jewish life without a homeland — and the movement to return</p>
+  <div data-lang="en"><h2>Diaspora, Preservation &amp; the Rise of Zionism</h2><p>Nearly two millennia of Jewish life without a homeland — and the movement to return</p></div>
+  <div data-lang="id"><h2>Diaspora, Pelestarian &amp; Kebangkitan Zionisme</h2><p>Hampir dua milenium kehidupan Yahudi tanpa tanah air — dan gerakan untuk kembali</p></div>
 </div>
 
 <div class="timeline">
@@ -866,46 +948,18 @@
   <div class="event science">
     <div class="event-header">
       <div class="event-date">135–600 CE</div>
-      <div class="event-title">Codification of Jewish Law — The Talmud</div>
-      <span class="source-tag tag-sci">Historical</span>
-    </div>
-    <div class="event-body">
-      <p>Scattered across the Roman Empire and Mesopotamia, Jewish communities preserve their identity through intense study of Torah. The Mishnah (c. 200 CE, compiled by Rabbi Judah HaNasi) and Talmud (Jerusalem Talmud c. 400 CE; Babylonian Talmud c. 500 CE) codify Jewish law, ethics, and tradition — becoming the backbone of Jewish civilization in exile for nearly two millennia.</p>
-      <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Historical:</span> <em>Stemberger, G. (1996). Introduction to the Talmud and Midrash. T&T Clark.</em></div>
-        <div class="ref-item"><span>Biblical:</span> The Talmud is rabbinic commentary on Torah/Scripture.</div>
+      <div class="event-title">
+        <div data-lang="en">Codification of Jewish Law — The Talmud</div>
+        <div data-lang="id">Kodifikasi Hukum Yahudi — Talmud</div>
       </div>
-    </div>
-  </div>
-
-  <div class="event science">
-    <div class="event-header">
-      <div class="event-date">638 CE</div>
-      <div class="event-title">Islamic Conquest of Jerusalem</div>
-      <span class="source-tag tag-sci">Historical</span>
+      <span class="source-tag tag-sci"><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span></span>
     </div>
     <div class="event-body">
-      <p>Caliph Umar ibn al-Khattab captures Jerusalem from the Byzantine Empire. The city becomes sacred to Islam (as the site of the Night Journey of Muhammad). The Dome of the Rock is later built on the Temple Mount (691 CE) by Caliph Abd al-Malik, marking a new chapter in the contested history of Jerusalem. Jews are gradually permitted to return to the city.</p>
+      <div data-lang="en"><p>Scattered across the Roman Empire and Mesopotamia, Jewish communities preserve their identity through the Mishnah (c. 200 CE) and Talmud (Jerusalem Talmud c. 400 CE; Babylonian Talmud c. 500 CE) — becoming the backbone of Jewish civilization in exile for nearly two millennia.</p></div>
+      <div data-lang="id"><p>Tersebar di seluruh Kekaisaran Romawi dan Mesopotamia, komunitas-komunitas Yahudi melestarikan identitas mereka melalui Mishnah (sekitar 200 M) dan Talmud (Talmud Yerusalem sekitar 400 M; Talmud Babilonia sekitar 500 M) — yang menjadi tulang punggung peradaban Yahudi di pengasingan selama hampir dua milenium.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Historical:</span> <em>Gil, M. (1992). A History of Palestine 634–1099. Cambridge University Press.</em></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="event science">
-    <div class="event-header">
-      <div class="event-date">1881–1903</div>
-      <div class="event-title">First Aliyah — Jews Begin Returning to Palestine</div>
-      <span class="source-tag tag-sci">Historical</span>
-    </div>
-    <div class="event-body">
-      <p>Fleeing pogroms in Russia and Eastern Europe, approximately 35,000 Jews immigrate to Ottoman Palestine in the First Aliyah. They found agricultural settlements (moshavot) including Rishon LeZion and Petah Tikva. This is the first major modern wave of Jewish immigration to the land — the beginning of what Zionists would call the "ingathering of exiles," fulfilling biblical prophecy in their view.</p>
-      <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Historical:</span> <em>Avineri, S. (1981). The Making of Modern Zionism. Basic Books.</em></div>
-        <div class="ref-item"><span>Biblical:</span> Isaiah 11:11–12; Ezekiel 36:24 — promises of a second ingathering of exiles.</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span>:</span> <em>Stemberger, G. (1996). Introduction to the Talmud and Midrash. T&T Clark.</em></div>
       </div>
     </div>
   </div>
@@ -913,28 +967,29 @@
   <div class="event science">
     <div class="event-header">
       <div class="event-date">1897</div>
-      <div class="event-title">First Zionist Congress — Theodor Herzl</div>
-      <span class="source-tag tag-sci">Historical</span>
+      <div class="event-title">
+        <div data-lang="en">First Zionist Congress — Theodor Herzl</div>
+        <div data-lang="id">Kongres Zionis Pertama — Theodor Herzl</div>
+      </div>
+      <span class="source-tag tag-sci"><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span></span>
     </div>
     <div class="event-body">
-      <p>Theodor Herzl convenes the First Zionist Congress in Basel, Switzerland, formally launching the political movement for a Jewish homeland. In his diary, Herzl wrote: "In Basel I founded the Jewish State." The Congress establishes the Zionist Organization and adopts the Basel Program, calling for a Jewish homeland in Palestine "secured by public law." Twenty years and one world war later, this vision would begin to be realized.</p>
+      <div data-lang="en"><p>Theodor Herzl convenes the First Zionist Congress in Basel, Switzerland, formally launching the political movement for a Jewish homeland. In his diary he wrote: "In Basel I founded the Jewish State." The Congress adopts the Basel Program, calling for a Jewish homeland in Palestine "secured by public law."</p></div>
+      <div data-lang="id"><p>Theodor Herzl mengadakan Kongres Zionis Pertama di Basel, Swiss, secara resmi meluncurkan gerakan politik untuk tanah air Yahudi. Dalam diarinya ia menulis: "Di Basel saya mendirikan Negara Yahudi." Kongres mengadopsi Program Basel, yang menyerukan tanah air Yahudi di Palestina "yang dijamin oleh hukum publik."</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Historical:</span> <em>Herzl, T. (1960). The Complete Diaries (ed. Patai). Herzl Press.</em></div>
-        <div class="ref-item"><span>Historical:</span> <em>Laqueur, W. (1972). A History of Zionism. Holt, Rinehart & Winston.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span>:</span> <em>Herzl, T. (1960). The Complete Diaries. Herzl Press.</em></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ERA 9 -->
-<!-- ═══════════════════════════════════════════════ -->
 <div class="era-header">
   <div class="era-label">Era IX · 1917–1948 CE</div>
-  <h2>British Mandate, Holocaust &amp; Statehood</h2>
-  <p>The darkest hour and the birth of the modern state</p>
+  <div data-lang="en"><h2>British Mandate, Holocaust &amp; Statehood</h2><p>The darkest hour and the birth of the modern state</p></div>
+  <div data-lang="id"><h2>Mandat Inggris, Holocaust &amp; Kemerdekaan</h2><p>Jam tergelap dan lahirnya negara modern</p></div>
 </div>
 
 <div class="timeline">
@@ -942,14 +997,18 @@
   <div class="event science">
     <div class="event-header">
       <div class="event-date">1917</div>
-      <div class="event-title">Balfour Declaration — Britain Supports Jewish Homeland</div>
-      <span class="source-tag tag-sci">Historical</span>
+      <div class="event-title">
+        <div data-lang="en">Balfour Declaration</div>
+        <div data-lang="id">Deklarasi Balfour</div>
+      </div>
+      <span class="source-tag tag-sci"><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span></span>
     </div>
     <div class="event-body">
-      <p>British Foreign Secretary Arthur James Balfour issues a letter to Lord Walter Rothschild declaring that the British government views "with favour the establishment in Palestine of a national home for the Jewish people." This is the first major governmental endorsement of Zionism and gives enormous international legitimacy to the movement. Britain subsequently receives the League of Nations Mandate for Palestine (1920).</p>
+      <div data-lang="en"><p>British Foreign Secretary Balfour declares that the British government views "with favour the establishment in Palestine of a national home for the Jewish people" — the first major governmental endorsement of Zionism. Britain subsequently receives the League of Nations Mandate for Palestine (1920).</p></div>
+      <div data-lang="id"><p>Menteri Luar Negeri Inggris Balfour menyatakan bahwa pemerintah Inggris memandang "dengan baik pendirian di Palestina sebuah tanah air nasional bagi bangsa Yahudi" — dukungan pemerintah besar pertama terhadap Zionisme. Inggris kemudian menerima Mandat Liga Bangsa-Bangsa untuk Palestina (1920).</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Historical:</span> <em>Balfour Declaration, Foreign Office, November 2, 1917 (British National Archives, FO 371/3083).</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span>:</span> <em>Balfour Declaration, Foreign Office, November 2, 1917 (British National Archives, FO 371/3083).</em></div>
       </div>
     </div>
   </div>
@@ -957,16 +1016,18 @@
   <div class="event science">
     <div class="event-header">
       <div class="event-date">1933–1945</div>
-      <div class="event-title">The Holocaust — Six Million Jews Murdered</div>
-      <span class="source-tag tag-sci">Historical</span>
+      <div class="event-title">
+        <div data-lang="en">The Holocaust — Six Million Jews Murdered</div>
+        <div data-lang="id">Holocaust — Enam Juta Orang Yahudi Dibunuh</div>
+      </div>
+      <span class="source-tag tag-sci"><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span></span>
     </div>
     <div class="event-body">
-      <p>Nazi Germany under Adolf Hitler systematically murders approximately six million Jews — two-thirds of European Jewry — in the Holocaust (Shoah). The genocide, carried out in death camps, ghettos, and mass shootings, becomes the defining trauma of modern Jewish consciousness and radically accelerates international support for Jewish statehood. The Nuremberg trials establish crimes against humanity in international law.</p>
-      <p>The Holocaust is one of the most thoroughly documented events in history, confirmed by Nazi administrative records, survivor testimony, Allied military documentation, and extensive forensic archaeology at camp sites including Auschwitz-Birkenau, Treblinka, and Sobibor.</p>
+      <div data-lang="en"><p>Nazi Germany systematically murders approximately six million Jews — two-thirds of European Jewry — in the Holocaust (Shoah). This genocide becomes the defining trauma of modern Jewish consciousness and radically accelerates international support for Jewish statehood. The Holocaust is one of the most thoroughly documented events in history.</p></div>
+      <div data-lang="id"><p>Nazi Jerman secara sistematis membunuh sekitar enam juta orang Yahudi — dua pertiga dari Yahudi Eropa — dalam Holocaust (Shoah). Genosida ini menjadi trauma penentu kesadaran Yahudi modern dan secara radikal mempercepat dukungan internasional bagi negara Yahudi. Holocaust adalah salah satu peristiwa yang paling terdokumentasi dalam sejarah.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Historical:</span> <em>Hilberg, R. (1985). The Destruction of the European Jews (3 vols.). Yale University Press.</em></div>
-        <div class="ref-item"><span>Historical:</span> <em>Yad Vashem — The World Holocaust Remembrance Center, Jerusalem.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span>:</span> <em>Hilberg, R. (1985). The Destruction of the European Jews. Yale University Press; Yad Vashem, Jerusalem.</em></div>
       </div>
     </div>
   </div>
@@ -974,30 +1035,30 @@
   <div class="event both">
     <div class="event-header">
       <div class="event-date">May 14, 1948</div>
-      <div class="event-title">Declaration of the State of Israel</div>
-      <span class="source-tag tag-both">Both</span>
+      <div class="event-title">
+        <div data-lang="en">Declaration of the State of Israel</div>
+        <div data-lang="id">Proklamasi Negara Israel</div>
+      </div>
+      <span class="source-tag tag-both"><span data-lang="en" class="inline">Both</span><span data-lang="id" class="inline">Keduanya</span></span>
     </div>
     <div class="event-body">
-      <p>At 4:00 p.m. in Tel Aviv, David Ben-Gurion reads Israel's Declaration of Independence, establishing the State of Israel — the first Jewish state in nearly 2,000 years. Within hours, the United States and Soviet Union grant diplomatic recognition. The very next day, five Arab armies invade, beginning the Israeli War of Independence. Israel survives and expands its territory. The "Law of Return" (1950) gives every Jew the right to immigrate.</p>
-      <p>Many Jews and Christians interpret this event as a miraculous fulfillment of biblical prophecy — particularly Ezekiel 37 (the Valley of Dry Bones), Isaiah 66:8 ("Can a country be born in a day?"), and Amos 9:14–15. Secularly, it is also the product of decades of diplomatic, military, and demographic groundwork by the Zionist movement.</p>
+      <div data-lang="en"><p>At 4:00 p.m. in Tel Aviv, David Ben-Gurion reads Israel's Declaration of Independence — the first Jewish state in nearly 2,000 years. Many Jews and Christians interpret this event as a miraculous fulfillment of biblical prophecy, particularly Ezekiel 37 (the Valley of Dry Bones) and Isaiah 66:8 ("Can a country be born in a day?").</p></div>
+      <div data-lang="id"><p>Pada pukul 16:00 di Tel Aviv, David Ben-Gurion membacakan Deklarasi Kemerdekaan Israel — negara Yahudi pertama dalam hampir 2.000 tahun. Banyak orang Yahudi dan Kristen menafsirkan peristiwa ini sebagai penggenapan ajaib dari nubuat Alkitab, khususnya Yehezkiel 37 (Lembah Tulang-Tulang Kering) dan Yesaya 66:8 ("Dapatkah suatu bangsa dilahirkan dalam sehari?").</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Historical:</span> <em>Israeli Declaration of Independence, May 14, 1948 (Israel State Archives).</em></div>
-        <div class="ref-item"><span>Historical:</span> <em>Morris, B. (2008). 1948: A History of the First Arab-Israeli War. Yale University Press.</em></div>
-        <div class="ref-item"><span>Biblical:</span> Ezekiel 37:1–14; Isaiah 66:8; Amos 9:14–15; Jeremiah 30:3; Deuteronomy 30:3–5</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span>:</span> <em>Israeli Declaration of Independence, May 14, 1948 (Israel State Archives); Morris, B. (2008). 1948. Yale University Press.</em></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Ezekiel 37:1–14; Isaiah 66:8; Amos 9:14–15; Jeremiah 30:3</div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════════ -->
 <!-- ERA 10 -->
-<!-- ═══════════════════════════════════════════════ -->
 <div class="era-header">
   <div class="era-label">Era X · 1948 – Present</div>
-  <h2>Modern State of Israel</h2>
-  <p>Wars, diplomacy, ingathering of exiles, and the ongoing story of a nation reborn</p>
+  <div data-lang="en"><h2>Modern State of Israel</h2><p>Wars, diplomacy, ingathering of exiles, and the ongoing story of a nation reborn</p></div>
+  <div data-lang="id"><h2>Negara Israel Modern</h2><p>Perang, diplomasi, pengumpulan orang-orang buangan, dan kisah berkelanjutan bangsa yang terlahir kembali</p></div>
 </div>
 
 <div class="timeline">
@@ -1005,31 +1066,19 @@
   <div class="event science">
     <div class="event-header">
       <div class="event-date">1967</div>
-      <div class="event-title">Six-Day War — Jerusalem Reunified</div>
-      <span class="source-tag tag-sci">Historical</span>
-    </div>
-    <div class="event-body">
-      <p>In six days, Israel defeats Egypt, Jordan, and Syria, capturing the Sinai Peninsula, Gaza Strip, West Bank, and most significantly, the Old City of Jerusalem including the Temple Mount — the first time Jews control the holy sites since 70 CE. General Moshe Dayan's announcement "We have returned to our holy places" becomes iconic. Many religious Jews and Christians see this as prophetically significant.</p>
-      <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Historical:</span> <em>Oren, M.B. (2002). Six Days of War. Oxford University Press.</em></div>
-        <div class="ref-item"><span>Biblical:</span> Luke 21:24 — "Jerusalem will be trampled on by the Gentiles until the times of the Gentiles are fulfilled."</div>
+      <div class="event-title">
+        <div data-lang="en">Six-Day War — Jerusalem Reunified</div>
+        <div data-lang="id">Perang Enam Hari — Yerusalem Dipersatukan Kembali</div>
       </div>
-    </div>
-  </div>
-
-  <div class="event science">
-    <div class="event-header">
-      <div class="event-date">1990s–2000s</div>
-      <div class="event-title">Mass Aliyah from the Former Soviet Union &amp; Ethiopia</div>
-      <span class="source-tag tag-sci">Historical</span>
+      <span class="source-tag tag-sci"><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span></span>
     </div>
     <div class="event-body">
-      <p>Over one million Jews emigrate from the former Soviet Union to Israel between 1990–2000 following the USSR's collapse. Operation Solomon (1991) airlifts nearly 15,000 Ethiopian Jews (Beta Israel) to Israel in 36 hours. These mass immigrations transform Israeli society and are seen by many as a fulfillment of the biblical promise of the ingathering of exiles from the four corners of the earth.</p>
+      <div data-lang="en"><p>In six days, Israel defeats Egypt, Jordan, and Syria, capturing the Sinai Peninsula, Gaza Strip, West Bank, and most significantly, the Old City of Jerusalem including the Temple Mount — the first time Jews control these holy sites since 70 CE. Many religious Jews and Christians see this as prophetically significant.</p></div>
+      <div data-lang="id"><p>Dalam enam hari, Israel mengalahkan Mesir, Yordania, dan Suriah, merebut Semenanjung Sinai, Jalur Gaza, Tepi Barat, dan yang terpenting, Kota Tua Yerusalem termasuk Bukit Bait Suci — pertama kalinya orang Yahudi mengendalikan tempat-tempat suci ini sejak 70 M. Banyak orang Yahudi dan Kristen yang taat melihat hal ini sebagai peristiwa yang signifikan secara nubuat.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Historical:</span> <em>Lustick, I. (1993). Unsettled States, Disputed Lands. Cornell University Press.</em></div>
-        <div class="ref-item"><span>Biblical:</span> Isaiah 11:11 — "…a second time to recover the remnant of his people… from the four quarters of the earth."</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span>:</span> <em>Oren, M.B. (2002). Six Days of War. Oxford University Press.</em></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Luke 21:24</div>
       </div>
     </div>
   </div>
@@ -1037,79 +1086,110 @@
   <div class="event science">
     <div class="event-header">
       <div class="event-date">2023–Present</div>
-      <div class="event-title">October 7 Attack &amp; Gaza War</div>
-      <span class="source-tag tag-sci">Historical</span>
+      <div class="event-title">
+        <div data-lang="en">October 7 Attack &amp; Gaza War</div>
+        <div data-lang="id">Serangan 7 Oktober &amp; Perang Gaza</div>
+      </div>
+      <span class="source-tag tag-sci"><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span></span>
     </div>
     <div class="event-body">
-      <p>On October 7, 2023 (the 50th anniversary of the Yom Kippur War), Hamas launches the deadliest attack on Jews since the Holocaust, killing approximately 1,200 Israelis and taking over 250 hostages from kibbutzim near Gaza. Israel responds with a military campaign in Gaza. The conflict reignites global debate over Israel's security, Palestinian rights, and the prospects for peace — themes that have defined Israeli existence since 1948.</p>
+      <div data-lang="en"><p>On October 7, 2023, Hamas launches the deadliest attack on Jews since the Holocaust, killing approximately 1,200 Israelis and taking over 250 hostages. Israel responds with a military campaign in Gaza. The conflict reignites global debate over Israel's security, Palestinian rights, and the prospects for peace.</p></div>
+      <div data-lang="id"><p>Pada 7 Oktober 2023, Hamas melancarkan serangan paling mematikan terhadap orang Yahudi sejak Holocaust, menewaskan sekitar 1.200 orang Israel dan menyandera lebih dari 250 orang. Israel merespons dengan kampanye militer di Gaza. Konflik ini kembali memicu perdebatan global tentang keamanan Israel, hak-hak Palestina, dan prospek perdamaian.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Historical:</span> <em>UN reports; Israeli government records; international news documentation.</em></div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Historical</span><span data-lang="id" class="inline">Historis</span>:</span> <em>UN reports; Israeli government records; international news documentation.</em></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- SCIENTIFIC DNA SECTION -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- GENETICS SECTION -->
 <div class="era-header" style="border-left-color: #2980b9;">
-  <div class="era-label" style="color:#2980b9;">Special Section · Genetics &amp; Science</div>
-  <h2>What Modern Science Says About Jewish Origins</h2>
-  <p>Population genetics, linguistics, and archaeology illuminate the deep history of the Jewish people</p>
-</div>
-
-<div class="section-intro">
-  Modern genomics provides remarkable insights into Jewish continuity and origins, generally supporting the biblical narrative of a people with deep Middle Eastern roots who remained genetically distinct through millennia of diaspora.
+  <div class="era-label" style="color:#2980b9;">
+    <span data-lang="en" class="inline">Special Section · Genetics &amp; Science</span>
+    <span data-lang="id" class="inline">Bagian Khusus · Genetika &amp; Ilmu Pengetahuan</span>
+  </div>
+  <div data-lang="en"><h2>What Modern Science Says About Jewish Origins</h2><p>Population genetics, linguistics, and archaeology illuminate the deep history of the Jewish people</p></div>
+  <div data-lang="id"><h2>Apa yang Dikatakan Ilmu Pengetahuan Modern tentang Asal-usul Yahudi</h2><p>Genetika populasi, linguistik, dan arkeologi menerangi sejarah mendalam bangsa Yahudi</p></div>
 </div>
 
 <div class="timeline">
 
   <div class="event science">
     <div class="event-header">
-      <div class="event-date">Genetic Studies</div>
-      <div class="event-title">Jewish Populations Share Common Middle Eastern Ancestry</div>
-      <span class="source-tag tag-sci">Scientific</span>
+      <div class="event-date" data-lang="en">Genetic Studies</div>
+      <div class="event-date" data-lang="id" style="display:none">Studi Genetika</div>
+      <div class="event-title">
+        <div data-lang="en">Jewish Populations Share Common Middle Eastern Ancestry</div>
+        <div data-lang="id">Populasi Yahudi Berbagi Nenek Moyang Timur Tengah yang Sama</div>
+      </div>
+      <span class="source-tag tag-sci"><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span></span>
     </div>
     <div class="event-body">
-      <p>Multiple large-scale genomic studies confirm that Jewish communities worldwide (Ashkenazi, Sephardi, Mizrahi, Ethiopian, and others) share significant genetic ancestry tracing back to the ancient Levant, consistent with the biblical account of a common origin in Canaan/Israel. Despite 2,000 years of diaspora on multiple continents, Jewish populations cluster genetically closer to each other and to Middle Eastern peoples than to their host populations.</p>
-      <p>The Cohen Modal Haplotype — a Y-chromosome marker common among Jewish men who carry the surname Cohen (the priestly lineage traced to Aaron, brother of Moses) — is found at high frequency across geographically distant Jewish communities, suggesting a genuine common patrilineal ancestor approximately 3,000 years ago.</p>
+      <div data-lang="en"><p>Multiple genomic studies confirm that Jewish communities worldwide (Ashkenazi, Sephardi, Mizrahi, Ethiopian) share significant genetic ancestry tracing back to the ancient Levant, consistent with the biblical account of a common origin in Canaan/Israel. The Cohen Modal Haplotype — a Y-chromosome marker found in Jewish men with priestly lineage — appears at high frequency across geographically distant communities, suggesting a genuine common patrilineal ancestor approximately 3,000 years ago.</p></div>
+      <div data-lang="id"><p>Berbagai studi genomik mengonfirmasi bahwa komunitas-komunitas Yahudi di seluruh dunia (Ashkenazi, Sefardi, Mizrahi, Ethiopia) berbagi nenek moyang genetik yang signifikan yang berasal dari Levant kuno, konsisten dengan kisah Alkitab tentang asal-usul bersama di Kanaan/Israel. Cohen Modal Haplotype — penanda kromosom Y yang ditemukan pada pria Yahudi dengan garis keturunan imam — muncul dengan frekuensi tinggi di komunitas-komunitas yang berjauhan secara geografis, menunjukkan nenek moyang patrilineal bersama yang sejati sekitar 3.000 tahun yang lalu.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Behar, D.M. et al. (2010). "The genome-wide structure of the Jewish people." Nature 466, 238–242.</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Hammer, M.F. et al. (2000). "Jewish and Middle Eastern non-Jewish populations share a common pool of Y-chromosome biallelic haplotypes." PNAS 97(12):6769–6774.</em> (Cohen Modal Haplotype)</div>
-        <div class="ref-item"><span>Biblical:</span> Numbers 3:1–4; 1 Chronicles 24 — Aaronic priesthood lineage.</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Behar, D.M. et al. (2010). "The genome-wide structure of the Jewish people." Nature 466, 238–242.</em></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Hammer, M.F. et al. (2000). "Jewish and Middle Eastern non-Jewish populations share a common pool of Y-chromosome biallelic haplotypes." PNAS 97(12).</em></div>
       </div>
     </div>
   </div>
 
   <div class="event science">
     <div class="event-header">
-      <div class="event-date">Linguistic Science</div>
-      <div class="event-title">Hebrew — A Language Revived After 2,000 Years</div>
-      <span class="source-tag tag-sci">Scientific</span>
+      <div class="event-date" data-lang="en">Linguistics</div>
+      <div class="event-date" data-lang="id" style="display:none">Linguistik</div>
+      <div class="event-title">
+        <div data-lang="en">Hebrew — A Language Revived After 2,000 Years</div>
+        <div data-lang="id">Bahasa Ibrani — Bahasa yang Dihidupkan Kembali Setelah 2.000 Tahun</div>
+      </div>
+      <span class="source-tag tag-sci"><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span></span>
     </div>
     <div class="event-body">
-      <p>Biblical Hebrew, used as a liturgical language for nearly 1,900 years without native speakers, was revived as a living vernacular in the late 19th–early 20th centuries, primarily through the work of Eliezer Ben-Yehuda. Modern Israeli Hebrew is the only successful large-scale language revival in history — a linguistic phenomenon with no parallel. Today over 9 million people speak it as a first language. Linguists classify it as a Northwest Semitic language with continuity from inscriptions as early as the 10th century BCE (Gezer Calendar, c. 925 BCE).</p>
+      <div data-lang="en"><p>Biblical Hebrew, used only as a liturgical language for nearly 1,900 years, was revived as a living vernacular in the late 19th century, primarily through the work of Eliezer Ben-Yehuda. Today over 9 million people speak it as a first language. It is the only successful large-scale language revival in history. The Gezer Calendar (c. 925 BCE) is among the earliest known Hebrew inscriptions, confirming linguistic continuity spanning 3,000 years.</p></div>
+      <div data-lang="id"><p>Bahasa Ibrani Alkitab, yang hanya digunakan sebagai bahasa liturgis selama hampir 1.900 tahun, dihidupkan kembali sebagai bahasa sehari-hari pada akhir abad ke-19, terutama melalui karya Eliezer Ben-Yehuda. Saat ini lebih dari 9 juta orang berbicara bahasa ini sebagai bahasa pertama. Ini adalah satu-satunya kebangkitan bahasa berskala besar yang berhasil dalam sejarah. Kalender Gezer (sekitar 925 SM) termasuk di antara prasasti Ibrani tertua yang diketahui, mengonfirmasi kesinambungan linguistik selama 3.000 tahun.</p></div>
       <div class="ref-box">
-        <div class="ref-box-title">References</div>
-        <div class="ref-item"><span>Scientific:</span> <em>Zuckermann, G. (2003). Language Contact and Lexical Enrichment in Israeli Hebrew. Palgrave Macmillan.</em></div>
-        <div class="ref-item"><span>Scientific:</span> <em>Gezer Calendar (Istanbul Archaeological Museum), c. 925 BCE — among earliest Hebrew inscriptions.</em></div>
-        <div class="ref-item"><span>Biblical:</span> Fulfilled in: Zephaniah 3:9 — "I will restore to the peoples a pure language."</div>
+        <div class="ref-box-title"><span data-lang="en" class="inline">References</span><span data-lang="id" class="inline">Referensi</span></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Scientific</span><span data-lang="id" class="inline">Ilmiah</span>:</span> <em>Zuckermann, G. (2003). Language Contact and Lexical Enrichment in Israeli Hebrew. Palgrave Macmillan.</em></div>
+        <div class="ref-item"><span><span data-lang="en" class="inline">Biblical</span><span data-lang="id" class="inline">Alkitab</span>:</span> Zephaniah 3:9 — <span data-lang="en" class="inline">"I will restore to the peoples a pure language."</span><span data-lang="id" class="inline">"Aku akan memberikan kepada bangsa-bangsa bibir yang bersih."</span></div>
       </div>
     </div>
   </div>
 
 </div>
-
 </div><!-- end container -->
 
 <footer>
-  <p><strong>A Note on Sources & Methodology</strong></p>
-  <p>This timeline draws on the Hebrew Bible/Old Testament, New Testament, and Deuterocanonical books as primary religious texts; and on peer-reviewed archaeological reports, ancient Near Eastern inscriptions, classical histories (Josephus, Tacitus, Arrian), and modern genetic studies as scientific/historical sources. Where events are attested in both traditions, they are marked accordingly. Where only one tradition speaks, that is noted transparently.</p>
-  <p style="margin-top:12px; color: #8a9bb0;">Compiled for educational purposes. All scriptural quotations paraphrased for brevity. Archaeological interpretations represent mainstream scholarly consensus where available.</p>
+  <div data-lang="en">
+    <p><strong>A Note on Sources &amp; Methodology</strong></p>
+    <p>This timeline draws on the Hebrew Bible/Old Testament, New Testament, and Deuterocanonical books as primary religious texts; and on peer-reviewed archaeological reports, ancient Near Eastern inscriptions, classical histories, and modern genetic studies as scientific/historical sources. Where events are attested in both traditions, they are marked accordingly.</p>
+    <p style="margin-top:12px; color: #8a9bb0;">Compiled for educational purposes. All scriptural quotations paraphrased for brevity.</p>
+  </div>
+  <div data-lang="id">
+    <p><strong>Catatan tentang Sumber &amp; Metodologi</strong></p>
+    <p>Linimasa ini mengacu pada Alkitab Ibrani/Perjanjian Lama, Perjanjian Baru, dan kitab-kitab Deuterokanonika sebagai teks keagamaan utama; serta laporan arkeologis yang ditinjau sejawat, prasasti Timur Dekat Kuno, sejarah klasik, dan studi genetik modern sebagai sumber ilmiah/historis. Bila peristiwa tercatat dalam kedua tradisi, hal tersebut ditandai sesuai.</p>
+    <p style="margin-top:12px; color: #8a9bb0;">Disusun untuk tujuan pendidikan. Semua kutipan kitab suci diparafrasekan untuk singkatnya.</p>
+  </div>
 </footer>
 
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-id').classList.toggle('active', lang === 'id');
+    // persist preference
+    try { localStorage.setItem('pref-lang', lang); } catch(e) {}
+  }
+
+  // Restore preference on load
+  (function() {
+    try {
+      var saved = localStorage.getItem('pref-lang');
+      if (saved === 'id') setLang('id');
+    } catch(e) {}
+  })();
+</script>
 </body>
 </html>
